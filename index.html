@@ -1019,8 +1019,6 @@
             
             .button {
                 padding: 10px 25px;
-                /* display: block; */ /* 複数のボタンが横並びの場合があるため、block化は慎重に */
-                /* margin: 10px auto; */
             }
              .hero-content > div { /* ボタンコンテナ */
                 display: flex;
@@ -1262,9 +1260,9 @@
                     </div>
                     <h3 class="info-title">アクセス</h3>
                     <ul class="info-list">
-                        <li>〒839-1403</li>
-                        <li>福岡県うきは市浮羽町東隈の上451-9</li>
-                        <li>道の駅うきはから車で約5分</li>
+                        <li>〒839-1411</li>
+                        <li>福岡県うきは市浮羽町流川３３３−１</li>
+                        <li>（上記住所、または店名「ma'am」で検索ください）</li>
                         <li>駐車場：あり（詳細はお問い合わせください）</li>
                     </ul>
                 </div>
@@ -1285,7 +1283,7 @@
             </div>
             
             <div class="map-container" data-aos="fade-up" data-aos-delay="500">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.985561180823!2d130.74157887635108!3d33.42352614965486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541a13d3c9a2837%3A0x2db99699245053e3!2z44CSODM5LTE0MDMg56aP5bKh55yM44GG44GN44Gv5biC5rWm572X55S65p2x6ZqU44Gu5LiK77yU77yV77yR4oiS77yZ!5e0!3m2!1sja!2sjp!4v1716280000000!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3332.4609746565056!2d130.7996705757866!3d33.33201434995176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35416d84255749cd%3A0x7000d18e17d0701d!2sma'am!5e0!3m2!1sja!2sjp!4v1716286811557!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
@@ -1444,7 +1442,7 @@
                             <svg viewBox="0 0 24 24">
                                 <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
                             </svg>
-                            <span>〒839-1403<br>福岡県うきは市浮羽町東隈の上451-9</span>
+                            <span>〒839-1411<br>福岡県うきは市浮羽町流川３３３−１</span>
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24">
@@ -1465,7 +1463,7 @@
             <div class="footer-divider"></div>
             
             <div class="copyright">
-                <p>© 2024 ma'am（マーム） All Rights Reserved.</p>
+                <p>© <span id="copyright-year"></span> ma'am（マーム） All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -1529,9 +1527,6 @@
 
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    // スムーススクロールを妨げないように、メニューを閉じるのは少し遅延させるか、
-                    // または、スムーススクロールの完了後に閉じるなどの工夫も考えられるが、
-                    // ここではシンプルにクリック時に閉じる。
                     if (hamburger.classList.contains('active')) {
                         hamburger.classList.remove('active');
                         navList.classList.remove('active');
@@ -1545,16 +1540,13 @@
         if (reservationForm) {
             reservationForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                // 実際の送信処理はここに追加 (例: Fetch API を使用してサーバーに送信)
                 alert('ご予約ありがとうございます。確認のためお電話させていただく場合がございます。');
                 reservationForm.reset();
             });
         }
         
         // スムーススクロール (既存のものはナビリンククリックでメニューが閉じる処理と干渉する可能性があるため、navLinksに対する処理は上記に統合)
-        // body 内のアンカーリンク全てに適用する場合
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            // ナビゲーションリスト内のリンクは既にハンバーガーメニューの処理で対応しているので除外も検討
             if (!anchor.closest('.nav-list')) { 
                 anchor.addEventListener('click', function (e) {
                     const targetId = this.getAttribute('href');
@@ -1568,6 +1560,12 @@
                 });
             }
         });
+
+        // コピーライトの年を動的に設定
+        const copyrightYearSpan = document.getElementById('copyright-year');
+        if (copyrightYearSpan) {
+            copyrightYearSpan.textContent = new Date().getFullYear();
+        }
     </script>
 </body>
 </html>
