@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>〇〇居酒屋 - 本格和食と厳選日本酒</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* ここにCSSを記述 */
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-image: url('店内写真.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        
+        header * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 他のセクションのスタイル */
+        /* ... */
+        
+        .reservation-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .reservation-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            /* スマホ向けスタイル */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>〇〇居酒屋</h1>
+        <p>本格和食と厳選された日本酒を楽しめる隠れ家</p>
+        <a href="#reservation" class="reservation-btn">ご予約はこちら</a>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <h2>当店について</h2>
+            <p>〇〇居酒屋は、伝統的な和食と現代的なアレンジを融合させた料理を提供しています。</p>
+            <!-- 内容を追加 -->
+        </div>
+    </section>
+    
+    <section id="menu">
+        <div class="container">
+            <h2>おすすめメニュー</h2>
+            <!-- メニュー内容 -->
+        </div>
+    </section>
+    
+    <section id="gallery">
+        <div class="container">
+            <h2>料理ギャラリー</h2>
+            <!-- 写真ギャラリー -->
+        </div>
+    </section>
+    
+    <section id="reservation">
+        <div class="container">
+            <h2>ご予約</h2>
+            <p>ご予約は以下のフォームまたはお電話にて承っております。</p>
+            <!-- Google Formsを埋め込む -->
+            <iframe src="Googleフォームの埋め込みURL" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+        </div>
+    </section>
+    
+    <section id="access">
+        <div class="container">
+            <h2>アクセス</h2>
+            <!-- 地図と住所情報 -->
+            <p>住所: 〒XXX-XXXX 東京都〇〇区〇〇1-2-3</p>
+            <p>電話: 03-XXXX-XXXX</p>
+            <p>営業時間: 17:00〜23:00（L.O. 22:30）</p>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 〇〇居酒屋 All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
