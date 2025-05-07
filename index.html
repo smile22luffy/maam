@@ -3,124 +3,626 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>〇〇居酒屋 - 本格和食と厳選日本酒</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>居酒屋〇〇 | 本格和食と厳選日本酒</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* ここにCSSを記述 */
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
             color: #333;
+            line-height: 1.8;
+            background-color: #f8f8f8;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         header {
-            background-image: url('店内写真.jpg');
+            background-color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        .nav-list a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-list a:hover {
+            color: #e67e22;
+        }
+        
+        .hero {
+            height: 80vh;
+            background-image: url('hero-image.jpg');
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            margin-top: 70px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            color: white;
             position: relative;
         }
         
-        header::before {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
+            background: rgba(0,0,0,0.4);
         }
         
-        header * {
+        .hero-content {
             position: relative;
             z-index: 2;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
         }
         
-        /* 他のセクションのスタイル */
-        /* ... */
+        .hero-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
         
-        .reservation-btn {
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .button {
             display: inline-block;
             padding: 12px 30px;
-            background-color: #e74c3c;
+            background-color: #e67e22;
             color: white;
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
-            margin-top: 20px;
             transition: background-color 0.3s;
         }
         
-        .reservation-btn:hover {
-            background-color: #c0392b;
+        .button:hover {
+            background-color: #d35400;
         }
         
-        /* レスポンシブ対応 */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-white {
+            background-color: #fff;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #e67e22;
+            margin: 15px auto;
+        }
+        
+        .section-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .menu-item-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item-price {
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 10px;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .info-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .info-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-list {
+            list-style: none;
+        }
+        
+        .info-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .info-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #e67e22;
+        }
+        
+        .map {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
+        
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: #e67e22;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
         @media (max-width: 768px) {
-            /* スマホ向けスタイル */
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-list {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>〇〇居酒屋</h1>
-        <p>本格和食と厳選された日本酒を楽しめる隠れ家</p>
-        <a href="#reservation" class="reservation-btn">ご予約はこちら</a>
+        <div class="container header-inner">
+            <a href="#" class="logo">居酒屋〇〇</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#about">当店について</a></li>
+                    <li><a href="#menu">メニュー</a></li>
+                    <li><a href="#gallery">ギャラリー</a></li>
+                    <li><a href="#info">店舗情報</a></li>
+                    <li><a href="#reservation">ご予約</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
-    <section id="about">
-        <div class="container">
-            <h2>当店について</h2>
-            <p>〇〇居酒屋は、伝統的な和食と現代的なアレンジを融合させた料理を提供しています。</p>
-            <!-- 内容を追加 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">居酒屋〇〇</h1>
+            <p class="hero-description">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした隠れ家的な居酒屋。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
+            <a href="#reservation" class="button">ご予約はこちら</a>
         </div>
     </section>
     
-    <section id="menu">
+    <section id="about" class="section">
         <div class="container">
-            <h2>おすすめメニュー</h2>
-            <!-- メニュー内容 -->
+            <h2 class="section-title">当店について</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>居酒屋〇〇は、「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした隠れ家的なお店です。</p>
+                    <p>魚市場の仲買権を持つ店主が早朝に競り落とした新鮮な魚介類や、地元の農家から直接仕入れた季節の野菜を使用。化学調味料や既製品は一切使わず、出汁も一から丁寧に引いています。</p>
+                    <p>穏やかな空気で満たされたオープンキッチンの店内にはカウンター席を中心にご用意。大きな窓から見える景色を眺めながら、落ち着いた雰囲気の中でお食事をお楽しみいただけます。</p>
+                    <p>お昼はランチセット（2,200円～）、夜は季節のコース料理（3,300円～）をご用意しております。予算に応じてお気軽にご相談ください。</p>
+                </div>
+                <div class="about-image">
+                    <img src="about-image.jpg" alt="店内の様子">
+                </div>
+            </div>
         </div>
     </section>
     
-    <section id="gallery">
+    <section id="menu" class="section section-white">
         <div class="container">
-            <h2>料理ギャラリー</h2>
-            <!-- 写真ギャラリー -->
+            <h2 class="section-title">おすすめメニュー</h2>
+            <p class="section-description">季節によって変わる日替わりメニューの一部をご紹介します。その日の仕入れ状況により内容は変わりますので、詳細はお問い合わせください。</p>
+            
+            <div class="grid">
+                <div class="menu-item">
+                    <img src="menu1.jpg" alt="刺身盛り合わせ" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">朝獲れ鮮魚の刺身盛り合わせ</h3>
+                        <p class="menu-item-price">¥2,400</p>
+                        <p>その日の朝、市場で競り落とした鮮魚を店主自らが捌いた刺身の盛り合わせ。自家製の出汁醤油でお召し上がりください。</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="menu2.jpg" alt="天ぷら" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">季節野菜と魚介の天ぷら</h3>
+                        <p class="menu-item-price">¥1,800</p>
+                        <p>地元農家から仕入れた旬の野菜と、新鮮な魚介を天ぷらに。サクッとした食感と素材の甘みをお楽しみください。</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="menu3.jpg" alt="日本酒" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">厳選日本酒飲み比べセット</h3>
+                        <p class="menu-item-price">¥1,500</p>
+                        <p>全国各地から厳選した3種類の日本酒を飲み比べできるセット。季節や料理に合わせて選りすぐりの銘柄をご用意します。</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
-    <section id="reservation">
+    <section id="gallery" class="section">
         <div class="container">
-            <h2>ご予約</h2>
-            <p>ご予約は以下のフォームまたはお電話にて承っております。</p>
-            <!-- Google Formsを埋め込む -->
-            <iframe src="Googleフォームの埋め込みURL" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+            <h2 class="section-title">ギャラリー</h2>
+            <p class="section-description">四季折々の料理と店内の雰囲気をご紹介します。</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="gallery1.jpg" alt="料理写真1">
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery2.jpg" alt="料理写真2">
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery3.jpg" alt="店内写真">
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery4.jpg" alt="料理写真3">
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery5.jpg" alt="料理写真4">
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery6.jpg" alt="料理写真5">
+                </div>
+            </div>
         </div>
     </section>
     
-    <section id="access">
+    <section id="info" class="section section-white">
         <div class="container">
-            <h2>アクセス</h2>
-            <!-- 地図と住所情報 -->
-            <p>住所: 〒XXX-XXXX 東京都〇〇区〇〇1-2-3</p>
-            <p>電話: 03-XXXX-XXXX</p>
-            <p>営業時間: 17:00〜23:00（L.O. 22:30）</p>
+            <h2 class="section-title">店舗情報</h2>
+            
+            <div class="grid">
+                <div class="info-box">
+                    <h3 class="info-title">営業時間</h3>
+                    <ul class="info-list">
+                        <li>【昼】11:00〜15:00（LO 14:30）</li>
+                        <li>【夜】17:00〜22:00（LO 21:30）</li>
+                        <li>※夜のコース料理は予約制となります</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3 class="info-title">定休日</h3>
+                    <ul class="info-list">
+                        <li>水曜日</li>
+                        <li>第1・第3日曜日</li>
+                        <li>※臨時休業あり・SNSでご確認ください</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3 class="info-title">アクセス</h3>
+                    <ul class="info-list">
+                        <li>〒XXX-XXXX</li>
+                        <li>○○県○○市○○町1-2-3</li>
+                        <li>○○駅から徒歩10分</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3 class="info-title">お支払い方法</h3>
+                    <ul class="info-list">
+                        <li>現金</li>
+                        <li>クレジットカード（VISA, Master, JCB, AMEX）</li>
+                        <li>電子マネー（PayPay, 楽天ペイ, d払い, etc.）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3287.3429101300245!2d130.7487283152904!3d33.50490498075684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541a67f5b01f8e3%3A0xb4e49def688c22ef!2z44CSODMwLTAwMjEg56aP5bKh55yM5LmF44GN44Gv5biC5rWm572X55S6IOadsemalOmVt-S4gQ!5e0!3m2!1sja!2sjp!4v1620456789123!5m2!1sja!2sjp" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <section id="reservation" class="section">
+        <div class="container">
+            <h2 class="section-title">ご予約</h2>
+            <p class="section-description">ご予約はお電話または以下のフォームより承っております。夜のコース料理は完全予約制となりますので、お早めにご連絡ください。</p>
+            
+            <div style="max-width: 600px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1);">
+                <form id="reservation-form">
+                    <div style="margin-bottom: 20px;">
+                        <label for="name" style="display: block; margin-bottom: 5px; font-weight: bold;">お名前</label>
+                        <input type="text" id="name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="email" style="display: block; margin-bottom: 5px; font-weight: bold;">メールアドレス</label>
+                        <input type="email" id="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="phone" style="display: block; margin-bottom: 5px; font-weight: bold;">電話番号</label>
+                        <input type="tel" id="phone" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="date" style="display: block; margin-bottom: 5px; font-weight: bold;">ご希望日</label>
+                        <input type="date" id="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="time" style="display: block; margin-bottom: 5px; font-weight: bold;">ご希望時間</label>
+                        <select id="time" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                            <option value="">選択してください</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="people" style="display: block; margin-bottom: 5px; font-weight: bold;">人数</label>
+                        <select id="people" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                            <option value="">選択してください</option>
+                            <option value="1">1名</option>
+                            <option value="2">2名</option>
+                            <option value="3">3名</option>
+                            <option value="4">4名</option>
+                            <option value="5">5名</option>
+                            <option value="6">6名</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="message" style="display: block; margin-bottom: 5px; font-weight: bold;">ご要望（アレルギーなど）</label>
+                        <textarea id="message" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                    </div>
+                    
+                    <button type="submit" style="width: 100%; padding: 12px; background-color: #e67e22; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">予約を送信する</button>
+                </form>
+                
+                <div style="margin-top: 30px; text-align: center;">
+                    <p style="font-weight: bold;">お電話でのご予約</p>
+                    <p style="font-size: 1.3rem; margin: 10px 0;">TEL: 000-000-0000</p>
+                </div>
+            </div>
         </div>
     </section>
     
     <footer>
         <div class="container">
-            <p>&copy; 2025 〇〇居酒屋 All Rights Reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>居酒屋〇〇</h3>
+                    <p>「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした居酒屋です。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">F</a>
+                        <a href="#" class="social-icon">I</a>
+                        <a href="#" class="social-icon">T</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>営業時間</h3>
+                    <p>【昼】11:00〜15:00（LO 14:30）</p>
+                    <p>【夜】17:00〜22:00（LO 21:30）</p>
+                    <p>定休日: 水曜日、第1・第3日曜日</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>お問い合わせ</h3>
+                    <p>〒XXX-XXXX</p>
+                    <p>○○県○○市○○町1-2-3</p>
+                    <p>TEL: 000-000-0000</p>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 居酒屋〇〇 All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 </body>
