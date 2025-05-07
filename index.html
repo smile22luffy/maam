@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>居酒屋〇〇 | 本格和食と厳選日本酒</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         * {
             margin: 0;
@@ -12,11 +13,15 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Noto Sans JP', sans-serif;
             color: #333;
             line-height: 1.8;
-            background-color: #f8f8f8;
+            overflow-x: hidden;
         }
         
         img {
@@ -26,19 +31,26 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
         }
         
+        /* ヘッダー */
         header {
-            background-color: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
+            transition: background-color 0.3s ease;
+            padding: 15px 0;
+        }
+        
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .header-inner {
@@ -51,38 +63,107 @@
             font-family: 'Noto Serif JP', serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: #333;
+            color: #fff;
             text-decoration: none;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .nav-list {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 25px;
         }
         
         .nav-list a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            padding-bottom: 5px;
             transition: color 0.3s;
+        }
+        
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #e67e22;
+            transition: width 0.3s ease;
         }
         
         .nav-list a:hover {
             color: #e67e22;
         }
         
+        .nav-list a:hover::after {
+            width: 100%;
+        }
+        
+        /* ハンバーガーメニュー */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            position: relative;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hamburger span:nth-child(3) {
+            bottom: 0;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+        
+        /* ヒーローセクション */
         .hero {
-            height: 80vh;
+            height: 100vh;
             background-image: url('hero-image.jpg');
             background-size: cover;
             background-position: center;
-            margin-top: 70px;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             position: relative;
+            overflow: hidden;
         }
         
         .hero::before {
@@ -92,173 +173,514 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            z-index: 2;
         }
         
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             color: white;
             max-width: 800px;
             padding: 0 20px;
+            text-align: center;
         }
         
         .hero-title {
             font-family: 'Noto Serif JP', serif;
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 20px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 0.8s;
         }
         
         .hero-description {
             font-size: 1.2rem;
             margin-bottom: 30px;
-            font-weight: 300;
             line-height: 1.8;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 1.1s;
         }
         
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        .scroll-down svg {
+            width: 30px;
+            height: 30px;
+            fill: #fff;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-15px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-7px) translateX(-50%);
+            }
+        }
+        
+        /* ボタン */
         .button {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 40px;
             background-color: #e67e22;
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 50px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.4s;
+        }
+        
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
         }
         
         .button:hover {
-            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.6);
         }
         
+        .button:hover::before {
+            left: 100%;
+        }
+        
+        .button-secondary {
+            background-color: transparent;
+            border: 2px solid #fff;
+            margin-left: 15px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        .button-secondary:hover {
+            background-color: #fff;
+            color: #333;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
+        }
+        
+        /* セクション共通 */
         .section {
-            padding: 80px 0;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
         }
         
-        .section-white {
+        .section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .section-dark {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        
+        .section-light {
             background-color: #fff;
         }
         
-        .section-title {
+        .section-gray {
+            background-color: #f8f8f8;
+        }
+        
+        .section-title-container {
             text-align: center;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             position: relative;
+        }
+        
+        .section-subtitle {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            color: #e67e22;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
         }
         
         .section-title::after {
             content: '';
             display: block;
-            width: 50px;
+            width: 60px;
             height: 3px;
             background-color: #e67e22;
             margin: 15px auto;
         }
         
         .section-description {
-            text-align: center;
             max-width: 800px;
-            margin: 0 auto 50px;
+            margin: 0 auto;
             font-size: 1.1rem;
             line-height: 1.8;
         }
         
-        .grid {
+        .section-dark .section-title,
+        .section-dark .section-description {
+            color: #fff;
+        }
+        
+        /* 漢字装飾 */
+        .kanji-decoration {
+            position: absolute;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 12rem;
+            color: rgba(0, 0, 0, 0.03);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .section-dark .kanji-decoration {
+            color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .kanji-top-right {
+            top: -50px;
+            right: 50px;
+        }
+        
+        .kanji-bottom-left {
+            bottom: -50px;
+            left: 50px;
+        }
+        
+        /* コンセプトセクション */
+        .concept {
+            padding: 150px 0;
+            background-color: #f8f8f8;
+            position: relative;
+        }
+        
+        .concept-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .concept-text {
+            flex: 1;
+            z-index: 2;
+        }
+        
+        .concept-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+        
+        .concept-image {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .image-frame {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .image-frame:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        .image-frame img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-frame:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* メニューセクション */
+        .menu {
+            background-color: #fff;
+            padding: 150px 0;
+            position: relative;
+        }
+        
+        .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
         }
         
         .menu-item {
-            background-color: #fff;
-            border-radius: 8px;
+            position: relative;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background-color: #fff;
         }
         
         .menu-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
         
         .menu-item-image {
-            height: 200px;
-            object-fit: cover;
             width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .menu-item:hover .menu-item-image {
+            transform: scale(1.1);
         }
         
         .menu-item-content {
-            padding: 20px;
+            padding: 25px;
         }
         
         .menu-item-title {
             font-family: 'Noto Serif JP', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 10px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .menu-item-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e67e22;
         }
         
         .menu-item-price {
             font-weight: bold;
+            font-size: 1.2rem;
             color: #e67e22;
-            margin-bottom: 10px;
-        }
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .about-text p {
             margin-bottom: 15px;
         }
         
+        .menu-item-description {
+            line-height: 1.8;
+            color: #666;
+        }
+        
+        /* ギャラリーセクション */
         .gallery {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 150px 0;
+            position: relative;
+        }
+        
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 200px;
             gap: 15px;
-            margin-top: 40px;
         }
         
         .gallery-item {
-            height: 200px;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item:nth-child(1) {
+            grid-column: span 6;
+            grid-row: span 2;
+        }
+        
+        .gallery-item:nth-child(2) {
+            grid-column: span 3;
+            grid-row: span 1;
+        }
+        
+        .gallery-item:nth-child(3) {
+            grid-column: span 3;
+            grid-row: span 1;
+        }
+        
+        .gallery-item:nth-child(4) {
+            grid-column: span 3;
+            grid-row: span 1;
+        }
+        
+        .gallery-item:nth-child(5) {
+            grid-column: span 3;
+            grid-row: span 1;
+        }
+        
+        .gallery-item:nth-child(6) {
+            grid-column: span 4;
+            grid-row: span 1;
+        }
+        
+        .gallery-item:nth-child(7) {
+            grid-column: span 4;
+            grid-row: span 1;
+        }
+        
+        .gallery-item:nth-child(8) {
+            grid-column: span 4;
+            grid-row: span 1;
         }
         
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            transition: transform 0.5s ease;
         }
         
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* 店舗情報セクション */
+        .info {
+            background-color: #f8f8f8;
+            padding: 150px 0;
+            position: relative;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         
         .info-box {
             background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #e67e22;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
         
         .info-title {
             font-family: 'Noto Serif JP', serif;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .info-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e67e22;
         }
         
         .info-list {
@@ -266,54 +688,179 @@
         }
         
         .info-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
+            margin-bottom: 12px;
+            padding-left: 25px;
             position: relative;
+            line-height: 1.6;
         }
         
         .info-list li::before {
-            content: '•';
+            content: '◆';
             position: absolute;
             left: 0;
             color: #e67e22;
+            font-size: 0.8rem;
         }
         
-        .map {
-            height: 400px;
-            border-radius: 8px;
+        .map-container {
+            margin-top: 60px;
+            border-radius: 10px;
             overflow: hidden;
-            margin-top: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            height: 400px;
         }
         
-        .map iframe {
+        .map-container iframe {
             width: 100%;
             height: 100%;
             border: 0;
         }
         
+        /* 予約セクション */
+        .reservation {
+            background-color: #fff;
+            padding: 150px 0;
+            position: relative;
+        }
+        
+        .reservation-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #e67e22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .tel-reservation {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .tel-reservation p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .tel-number {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #e67e22;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+        
+        /* フッター */
         footer {
-            background-color: #333;
-            color: white;
-            padding: 50px 0 20px;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 80px 0 30px;
         }
         
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 50px;
+            margin-bottom: 60px;
         }
         
         .footer-section h3 {
             font-family: 'Noto Serif JP', serif;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e67e22;
         }
         
         .footer-section p {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            opacity: 0.8;
+            margin-bottom: 15px;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+        
+        .footer-info-list {
+            list-style: none;
+        }
+        
+        .footer-info-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-info-list li svg {
+            width: 20px;
+            height: 20px;
+            fill: #e67e22;
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 5px;
         }
         
         .social-links {
@@ -328,52 +875,142 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
         }
         
         .social-icon:hover {
             background-color: #e67e22;
+            transform: translateY(-3px);
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
         }
         
         .copyright {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.5;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .concept-content {
+                flex-direction: column;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .gallery-grid {
+                grid-auto-rows: 150px;
+            }
         }
         
         @media (max-width: 768px) {
+            .nav-list {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
             .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .button {
+                padding: 12px 30px;
+            }
+            
+            .section-title {
                 font-size: 2.2rem;
             }
             
-            .about-grid {
-                grid-template-columns: 1fr;
+            .concept, .menu, .gallery, .info, .reservation {
+                padding: 80px 0;
             }
             
-            .nav-list {
-                display: none;
+            .gallery-item:nth-child(1) {
+                grid-column: span 12;
+            }
+            
+            .gallery-item:nth-child(n+2) {
+                grid-column: span 6;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .button {
+                padding: 10px 25px;
+                display: block;
+                margin: 10px auto;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-item:nth-child(n) {
+                grid-column: span 12;
+            }
+            
+            .reservation-form-container {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container header-inner">
             <a href="#" class="logo">居酒屋〇〇</a>
             <nav>
                 <ul class="nav-list">
-                    <li><a href="#about">当店について</a></li>
+                    <li><a href="#concept">コンセプト</a></li>
                     <li><a href="#menu">メニュー</a></li>
                     <li><a href="#gallery">ギャラリー</a></li>
                     <li><a href="#info">店舗情報</a></li>
                     <li><a href="#reservation">ご予約</a></li>
                 </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </nav>
         </div>
     </header>
@@ -381,107 +1018,180 @@
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">居酒屋〇〇</h1>
+            <p class="hero-subtitle">旨味が浸み込んだ季節の鮮魚と厳選日本酒</p>
             <p class="hero-description">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした隠れ家的な居酒屋。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
-            <a href="#reservation" class="button">ご予約はこちら</a>
+            <div>
+                <a href="#reservation" class="button">ご予約はこちら</a>
+                <a href="#menu" class="button button-secondary">メニューを見る</a>
+            </div>
+        </div>
+        <div class="scroll-down" onclick="document.getElementById('concept').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 24 24">
+                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+            </svg>
         </div>
     </section>
     
-    <section id="about" class="section">
+    <section id="concept" class="section concept">
         <div class="container">
-            <h2 class="section-title">当店について</h2>
-            <div class="about-grid">
-                <div class="about-text">
+            <span class="kanji-decoration kanji-top-right">旬</span>
+            <div class="section-title-container" data-aos="fade-up">
+                <p class="section-subtitle">CONCEPT</p>
+                <h2 class="section-title">こだわりの食材と空間</h2>
+                <p class="section-description">魚市場の仲買権を持つ店主が目利きした鮮魚と地元の旬の食材。丁寧な仕事で魅せる料理と、居心地のよい空間で、ゆったりとした時間をご提供します。</p>
+            </div>
+            
+            <div class="concept-content">
+                <div class="concept-text" data-aos="fade-right" data-aos-delay="200">
                     <p>居酒屋〇〇は、「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした隠れ家的なお店です。</p>
                     <p>魚市場の仲買権を持つ店主が早朝に競り落とした新鮮な魚介類や、地元の農家から直接仕入れた季節の野菜を使用。化学調味料や既製品は一切使わず、出汁も一から丁寧に引いています。</p>
+                    <p>「味を誤魔化したくない」という店主のこだわりから、刺身醤油やポン酢も巧みなさじ加減で自家調合する手間のかけよう。この手仕事が奇をてらわない、温もりのある味を生み出しています。</p>
                     <p>穏やかな空気で満たされたオープンキッチンの店内にはカウンター席を中心にご用意。大きな窓から見える景色を眺めながら、落ち着いた雰囲気の中でお食事をお楽しみいただけます。</p>
-                    <p>お昼はランチセット（2,200円～）、夜は季節のコース料理（3,300円～）をご用意しております。予算に応じてお気軽にご相談ください。</p>
                 </div>
-                <div class="about-image">
-                    <img src="about-image.jpg" alt="店内の様子">
+                <div class="concept-image" data-aos="fade-left" data-aos-delay="400">
+                    <div class="image-frame">
+                        <img src="about-image.jpg" alt="店内の様子">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="menu" class="section section-white">
+    <section id="menu" class="section menu">
         <div class="container">
-            <h2 class="section-title">おすすめメニュー</h2>
-            <p class="section-description">季節によって変わる日替わりメニューの一部をご紹介します。その日の仕入れ状況により内容は変わりますので、詳細はお問い合わせください。</p>
+            <span class="kanji-decoration kanji-bottom-left">味</span>
+            <div class="section-title-container" data-aos="fade-up">
+                <p class="section-subtitle">MENU</p>
+                <h2 class="section-title">旬の恵みを味わう</h2>
+                <p class="section-description">お昼はランチセット（2,200円～）、夜は季節のコース料理（3,300円～）をご用意しております。一品料理や厳選したお酒も豊富にご用意しています。</p>
+            </div>
             
-            <div class="grid">
-                <div class="menu-item">
+            <div class="menu-grid">
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
                     <img src="menu1.jpg" alt="刺身盛り合わせ" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">朝獲れ鮮魚の刺身盛り合わせ</h3>
                         <p class="menu-item-price">¥2,400</p>
-                        <p>その日の朝、市場で競り落とした鮮魚を店主自らが捌いた刺身の盛り合わせ。自家製の出汁醤油でお召し上がりください。</p>
+                        <p class="menu-item-description">その日の朝、市場で競り落とした鮮魚を店主自らが捌いた刺身の盛り合わせ。自家製の出汁醤油でお召し上がりください。</p>
                     </div>
                 </div>
                 
-                <div class="menu-item">
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
                     <img src="menu2.jpg" alt="天ぷら" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">季節野菜と魚介の天ぷら</h3>
                         <p class="menu-item-price">¥1,800</p>
-                        <p>地元農家から仕入れた旬の野菜と、新鮮な魚介を天ぷらに。サクッとした食感と素材の甘みをお楽しみください。</p>
+                        <p class="menu-item-description">地元農家から仕入れた旬の野菜と、新鮮な魚介を天ぷらに。サクッとした食感と素材の甘みをお楽しみください。</p>
                     </div>
                 </div>
                 
-                <div class="menu-item">
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
                     <img src="menu3.jpg" alt="日本酒" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">厳選日本酒飲み比べセット</h3>
                         <p class="menu-item-price">¥1,500</p>
-                        <p>全国各地から厳選した3種類の日本酒を飲み比べできるセット。季節や料理に合わせて選りすぐりの銘柄をご用意します。</p>
+                        <p class="menu-item-description">全国各地から厳選した3種類の日本酒を飲み比べできるセット。季節や料理に合わせて選りすぐりの銘柄をご用意します。</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="menu4.jpg" alt="ランチセット" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">ランチセット</h3>
+                        <p class="menu-item-price">¥2,200〜</p>
+                        <p class="menu-item-description">刺身、天ぷらのほか、日替わりでハンバーグや煮物などもお楽しみいただけます。小鉢、サラダ、ご飯、味噌汁、香の物付き。</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="500">
+                    <img src="menu5.jpg" alt="夜のコース" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">夜のコース料理</h3>
+                        <p class="menu-item-price">¥3,300〜</p>
+                        <p class="menu-item-description">季節の食材を活かした贅沢なコース。旬の前菜、お造り、焼き物、煮物、揚げ物、食事、デザートまで、丁寧に仕上げた料理の数々をご堪能ください。</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="600">
+                    <img src="menu6.jpg" alt="自家製デザート" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">自家製デザート</h3>
+                        <p class="menu-item-price">¥600〜</p>
+                        <p class="menu-item-description">パウンドケーキやスコーンなど、地元の小麦粉を使用した優しい味わいの自家製デザート。季節のフルーツとともにどうぞ。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="gallery" class="section">
+    <section id="gallery" class="section gallery">
         <div class="container">
-            <h2 class="section-title">ギャラリー</h2>
-            <p class="section-description">四季折々の料理と店内の雰囲気をご紹介します。</p>
+            <span class="kanji-decoration kanji-top-right">彩</span>
+            <div class="section-title-container" data-aos="fade-up">
+                <p class="section-subtitle">GALLERY</p>
+                <h2 class="section-title">旬の彩りを愉しむ</h2>
+                <p class="section-description">四季折々の料理と店内の雰囲気をご紹介します。</p>
+            </div>
             
-            <div class="gallery">
-                <div class="gallery-item">
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
                     <img src="gallery1.jpg" alt="料理写真1">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
                     <img src="gallery2.jpg" alt="料理写真2">
                 </div>
-                <div class="gallery-item">
-                    <img src="gallery3.jpg" alt="店内写真">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="gallery3.jpg" alt="料理写真3">
                 </div>
-                <div class="gallery-item">
-                    <img src="gallery4.jpg" alt="料理写真3">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="gallery4.jpg" alt="料理写真4">
                 </div>
-                <div class="gallery-item">
-                    <img src="gallery5.jpg" alt="料理写真4">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="gallery5.jpg" alt="店内写真1">
                 </div>
-                <div class="gallery-item">
-                    <img src="gallery6.jpg" alt="料理写真5">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="gallery6.jpg" alt="店内写真2">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="700">
+                    <img src="gallery7.jpg" alt="店内写真3">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="800">
+                    <img src="gallery8.jpg" alt="店内写真4">
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="info" class="section section-white">
+    <section id="info" class="section info">
         <div class="container">
-            <h2 class="section-title">店舗情報</h2>
+            <span class="kanji-decoration kanji-bottom-left">情</span>
+            <div class="section-title-container" data-aos="fade-up">
+                <p class="section-subtitle">INFORMATION</p>
+                <h2 class="section-title">店舗情報</h2>
+                <p class="section-description">営業時間や場所など、ご来店の際にお役立てください。</p>
+            </div>
             
-            <div class="grid">
-                <div class="info-box">
+            <div class="info-grid">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                        </svg>
+                    </div>
                     <h3 class="info-title">営業時間</h3>
                     <ul class="info-list">
-                        <li>【昼】11:00〜15:00（LO 14:30）</li>
-                        <li>【夜】17:00〜22:00（LO 21:30）</li>
+                        <li>【昼】11:00〜15:00（L.O. 14:30）</li>
+                        <li>【夜】17:00〜22:00（L.O. 21:30）</li>
                         <li>※夜のコース料理は予約制となります</li>
                     </ul>
                 </div>
                 
-                <div class="info-box">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/>
+                        </svg>
+                    </div>
                     <h3 class="info-title">定休日</h3>
                     <ul class="info-list">
                         <li>水曜日</li>
@@ -490,16 +1200,27 @@
                     </ul>
                 </div>
                 
-                <div class="info-box">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="300">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+                        </svg>
+                    </div>
                     <h3 class="info-title">アクセス</h3>
                     <ul class="info-list">
                         <li>〒XXX-XXXX</li>
                         <li>○○県○○市○○町1-2-3</li>
                         <li>○○駅から徒歩10分</li>
+                        <li>駐車場：3台あり</li>
                     </ul>
                 </div>
                 
-                <div class="info-box">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                        </svg>
+                    </div>
                     <h3 class="info-title">お支払い方法</h3>
                     <ul class="info-list">
                         <li>現金</li>
@@ -509,83 +1230,113 @@
                 </div>
             </div>
             
-            <div class="map">
+            <div class="map-container" data-aos="fade-up" data-aos-delay="500">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3287.3429101300245!2d130.7487283152904!3d33.50490498075684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541a67f5b01f8e3%3A0xb4e49def688c22ef!2z44CSODMwLTAwMjEg56aP5bKh55yM5LmF44GN44Gv5biC5rWm572X55S6IOadsemalOmVt-S4gQ!5e0!3m2!1sja!2sjp!4v1620456789123!5m2!1sja!2sjp" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
     
-    <section id="reservation" class="section">
+    <section id="reservation" class="section reservation">
         <div class="container">
-            <h2 class="section-title">ご予約</h2>
-            <p class="section-description">ご予約はお電話または以下のフォームより承っております。夜のコース料理は完全予約制となりますので、お早めにご連絡ください。</p>
+            <span class="kanji-decoration kanji-top-right">予</span>
+            <div class="section-title-container" data-aos="fade-up">
+                <p class="section-subtitle">RESERVATION</p>
+                <h2 class="section-title">ご予約</h2>
+                <p class="section-description">ご予約はお電話または以下のフォームより承っております。夜のコース料理は完全予約制となりますので、お早めにご連絡ください。</p>
+            </div>
             
-            <div style="max-width: 600px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1);">
+            <div class="reservation-form-container" data-aos="fade-up" data-aos-delay="200">
                 <form id="reservation-form">
-                    <div style="margin-bottom: 20px;">
-                        <label for="name" style="display: block; margin-bottom: 5px; font-weight: bold;">お名前</label>
-                        <input type="text" id="name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    <div class="form-group">
+                        <label for="name">お名前</label>
+                        <input type="text" id="name" class="form-control" required>
                     </div>
                     
-                    <div style="margin-bottom: 20px;">
-                        <label for="email" style="display: block; margin-bottom: 5px; font-weight: bold;">メールアドレス</label>
-                        <input type="email" id="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="email">メールアドレス</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="phone">電話番号</label>
+                                <input type="tel" id="phone" class="form-control" required>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="margin-bottom: 20px;">
-                        <label for="phone" style="display: block; margin-bottom: 5px; font-weight: bold;">電話番号</label>
-                        <input type="tel" id="phone" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="date">ご希望日</label>
+                                <input type="date" id="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="time">ご希望時間</label>
+                                <select id="time" class="form-control" required>
+                                    <option value="">選択してください</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="20:00">20:00</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="margin-bottom: 20px;">
-                        <label for="date" style="display: block; margin-bottom: 5px; font-weight: bold;">ご希望日</label>
-                        <input type="date" id="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="people">人数</label>
+                                <select id="people" class="form-control" required>
+                                    <option value="">選択してください</option>
+                                    <option value="1">1名</option>
+                                    <option value="2">2名</option>
+                                    <option value="3">3名</option>
+                                    <option value="4">4名</option>
+                                    <option value="5">5名</option>
+                                    <option value="6">6名</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="course">コース</label>
+                                <select id="course" class="form-control">
+                                    <option value="">選択してください</option>
+                                    <option value="lunch">ランチ</option>
+                                    <option value="dinner-basic">夜のコース（3,300円）</option>
+                                    <option value="dinner-premium">夜のコース（5,500円）</option>
+                                    <option value="alacarte">アラカルト</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="margin-bottom: 20px;">
-                        <label for="time" style="display: block; margin-bottom: 5px; font-weight: bold;">ご希望時間</label>
-                        <select id="time" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
-                            <option value="">選択してください</option>
-                            <option value="11:00">11:00</option>
-                            <option value="11:30">11:30</option>
-                            <option value="12:00">12:00</option>
-                            <option value="12:30">12:30</option>
-                            <option value="13:00">13:00</option>
-                            <option value="13:30">13:30</option>
-                            <option value="17:00">17:00</option>
-                            <option value="17:30">17:30</option>
-                            <option value="18:00">18:00</option>
-                            <option value="18:30">18:30</option>
-                            <option value="19:00">19:00</option>
-                            <option value="19:30">19:30</option>
-                            <option value="20:00">20:00</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="message">ご要望（アレルギーなど）</label>
+                        <textarea id="message" class="form-control" rows="4"></textarea>
                     </div>
                     
-                    <div style="margin-bottom: 20px;">
-                        <label for="people" style="display: block; margin-bottom: 5px; font-weight: bold;">人数</label>
-                        <select id="people" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
-                            <option value="">選択してください</option>
-                            <option value="1">1名</option>
-                            <option value="2">2名</option>
-                            <option value="3">3名</option>
-                            <option value="4">4名</option>
-                            <option value="5">5名</option>
-                            <option value="6">6名</option>
-                        </select>
-                    </div>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <label for="message" style="display: block; margin-bottom: 5px; font-weight: bold;">ご要望（アレルギーなど）</label>
-                        <textarea id="message" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
-                    </div>
-                    
-                    <button type="submit" style="width: 100%; padding: 12px; background-color: #e67e22; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">予約を送信する</button>
+                    <button type="submit" class="submit-btn">予約を送信する</button>
                 </form>
                 
-                <div style="margin-top: 30px; text-align: center;">
-                    <p style="font-weight: bold;">お電話でのご予約</p>
-                    <p style="font-size: 1.3rem; margin: 10px 0;">TEL: 000-000-0000</p>
+                <div class="tel-reservation">
+                    <p>お電話でのご予約・お問い合わせ</p>
+                    <a href="tel:000-000-0000" class="tel-number">TEL: 000-000-0000</a>
                 </div>
             </div>
         </div>
@@ -596,34 +1347,142 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>居酒屋〇〇</h3>
-                    <p>「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした居酒屋です。</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">F</a>
-                        <a href="#" class="social-icon">I</a>
-                        <a href="#" class="social-icon">T</a>
+                    <p>「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした居酒屋です。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
+                    <div class="social-links">  
+                        <a href="#" class="social-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>営業時間</h3>
-                    <p>【昼】11:00〜15:00（LO 14:30）</p>
-                    <p>【夜】17:00〜22:00（LO 21:30）</p>
-                    <p>定休日: 水曜日、第1・第3日曜日</p>
+                    <h3>営業情報</h3>
+                    <ul class="footer-info-list">
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                            </svg>
+                            <span>
+                                【昼】11:00〜15:00（L.O. 14:30）<br>
+                                【夜】17:00〜22:00（L.O. 21:30）
+                            </span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/>
+                            </svg>
+                            <span>定休日: 水曜日、第1・第3日曜日</span>
+                        </li>
+                    </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3>お問い合わせ</h3>
-                    <p>〒XXX-XXXX</p>
-                    <p>○○県○○市○○町1-2-3</p>
-                    <p>TEL: 000-000-0000</p>
-                    <p>Email: info@example.com</p>
+                    <ul class="footer-info-list">
+                        <li>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2
+
+                                <li>
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+                                    </svg>
+                                    <span>〒XXX-XXXX<br>○○県○○市○○町1-2-3</span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+                                    </svg>
+                                    <span>TEL: 000-000-0000</span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                                    </svg>
+                                    <span>Email: info@example.com</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-divider"></div>
+                    
+                    <div class="copyright">
+                        <p>&copy; 2025 居酒屋〇〇 All Rights Reserved.</p>
+                    </div>
                 </div>
-            </div>
+            </footer>
             
-            <div class="copyright">
-                <p>&copy; 2025 居酒屋〇〇 All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+            <!-- JavaScriptの読み込み -->
+            <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+            <script>
+                // AOSの初期化
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease',
+                    once: true,
+                    offset: 200,
+                });
+                
+                // ヘッダーのスクロール対応
+                const header = document.getElementById('header');
+                const hamburger = document.querySelector('.hamburger');
+                
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+                
+                // 予約フォームの送信処理
+                const reservationForm = document.getElementById('reservation-form');
+                if (reservationForm) {
+                    reservationForm.addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        
+                        // 実際の送信処理はここに追加
+                        alert('ご予約ありがとうございます。確認のためお電話させていただく場合がございます。');
+                        reservationForm.reset();
+                    });
+                }
+                
+                // パララックス効果
+                window.addEventListener('scroll', function() {
+                    const scrollY = window.scrollY;
+                    
+                    // ヒーロー画像のパララックス
+                    document.querySelector('.hero').style.backgroundPositionY = scrollY * 0.5 + 'px';
+                    
+                    // セクションごとの漢字装飾のパララックス
+                    document.querySelectorAll('.kanji-decoration').forEach(function(kanji) {
+                        const parent = kanji.closest('.section');
+                        const parentTop = parent.offsetTop;
+                        const speed = kanji.classList.contains('kanji-top-right') ? 0.2 : -0.2;
+                        
+                        const yPos = (scrollY - parentTop) * speed;
+                        kanji.style.transform = 'translateY(' + yPos + 'px)';
+                    });
+                });
+                
+                // スムーススクロール
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            </script>
+        </body>
+        </html>
