@@ -7,6 +7,6 @@
   <path d="M5 27 L5 5 L27 5 L27 27 L5 27 Z" fill="#F7F6F4" stroke="#D5D3CF" stroke-width="0.5" />
   <path d="M16 7 C11 7 7 11 7 16 L7 25 L25 25 L25 16 C25 11 21 7 16 7 Z" fill="#E3CDAF" stroke="#D5B995" stroke-width="0.5" />
   
-  <!-- mの文字 - Georgia系フォントスタイルで表現 -->
-  <text x="16" y="20" font-family="Georgia, serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#3D3D3D">m</text>
+  <!-- mの文字 - Georgia系フォントスタイルで表現（サイズアップ） -->
+  <text x="16" y="19.5" font-family="Georgia, serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#3D3D3D">m</text>
 </svg>
