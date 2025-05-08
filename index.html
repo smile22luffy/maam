@@ -7,1042 +7,289 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      /* --- 基本スタイル --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; overflow-x: hidden; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; }
+
+       /* 下線スタイル */
+        .sumi-underline {
+            background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.25) 75%);
+            display: inline;
+            padding: 0 2px;
         }
-        
-        html {
-            scroll-behavior: smooth;
+        .section-dark .sumi-underline {
+             background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.4) 75%);
         }
+
+      /* --- ヘッダー --- */
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: background-color 0.3s ease; padding: 15px 0; }
+        header.scrolled { background-color: rgba(0, 0, 0, 0.8); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: 700; color: #fff; text-decoration: none; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; }
+        .logo:hover { transform: scale(1.05); }
+        .nav-list { display: flex; list-style: none; gap: 25px; }
+        .nav-list a { text-decoration: none; color: #fff; font-weight: 500; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); position: relative; padding-bottom: 5px; transition: color 0.3s; }
+        .nav-list a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #e67e22; transition: width 0.3s ease; }
+        .nav-list a:hover { color: #e67e22; }
+        .nav-list a:hover::after { width: 100%; }
+        .hamburger { display: none; cursor: pointer; width: 30px; height: 25px; position: relative; z-index: 1001; }
+        .hamburger span { display: block; position: absolute; width: 100%; height: 3px; background-color: #fff; border-radius: 3px; transition: all 0.3s ease; }
+        .hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); } .hamburger span:nth-child(3) { bottom: 0; }
+        .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+      /* --- ヒーローセクション --- */
+        .hero { height: 100vh; background-image: url('料理人ゆうちゃんの腕前.webp'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); z-index: 1; }
+        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); z-index: 2; }
+        .hero-content { position: relative; z-index: 3; color: white; max-width: 800px; padding: 0 20px; text-align: center; }
+        .hero-title { font-family: 'Noto Serif JP', serif; font-size: 4rem; margin-bottom: 20px; letter-spacing: 3px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; animation: fadeInUp 1s forwards 0.5s; }
+        .hero-subtitle { font-size: 1.8rem; margin-bottom: 20px; font-weight: 300; opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards 0.8s; }
+        .hero-description { font-size: 1.2rem; margin-bottom: 30px; line-height: 1.8; opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards 1.1s; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10; animation: bounce 2s infinite; cursor: pointer; }
+        .scroll-down svg { width: 30px; height: 30px; fill: #fff; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-15px) translateX(-50%); } 60% { transform: translateY(-7px) translateX(-50%); } }
+
+      /* --- ボタン --- */
+        .button { display: inline-block; padding: 15px 40px; background-color: #e67e22; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; position: relative; overflow: hidden; z-index: 1; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); transform: translateY(20px); opacity: 0; animation: fadeInUp 1s forwards 1.4s; }
+        .button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: left 0.7s ease; z-index: -1; }
+        .button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(230, 126, 34, 0.6); }
+        .button:hover::before { left: 100%; }
+        .button-secondary { background-color: transparent; border: 2px solid #fff; margin-left: 15px; box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2); }
+        .button-secondary:hover { background-color: #fff; color: #333; box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4); }
+
+      /* --- セクション共通 --- */
+        .section { padding: 100px 0; position: relative; overflow: hidden; }
+        .section::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
+        .section-dark { background-color: #1a1a1a; color: #fff; }
+        .section-light { background-color: #fff; color: #333; }
+        .section-gray { background-color: #f8f8f8; }
+        .section-title-container { text-align: center; margin-bottom: 60px; position: relative; }
+        .section-subtitle { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; color: #e67e22; margin-bottom: 10px; letter-spacing: 2px; }
+        .section-title { font-family: 'Noto Serif JP', serif; font-size: 2.8rem; margin-bottom: 25px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background-color: #e67e22; margin: 15px auto; }
+        .section-description { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
+        .section-dark .section-title, .section-dark .section-description { color: #fff; }
+        .section-light .section-title, .section-light .section-description { color: #333; }
+
+      /* --- 漢字装飾 --- */
+        .kanji-decoration { position: absolute; font-family: 'Noto Serif JP', serif; font-size: 12rem; color: rgba(0, 0, 0, 0.03); pointer-events: none; z-index: 0; }
+        .section-dark .kanji-decoration { color: rgba(255, 255, 255, 0.03); }
+        .kanji-top-right { top: -50px; right: 50px; } .kanji-bottom-left { bottom: -50px; left: 50px; }
+
+      /* --- コンセプトセクション --- */
+        .concept-content { display: flex; align-items: center; gap: 60px; }
+        .concept-text { flex: 1; z-index: 2; }
+        .concept-text p { margin-bottom: 20px; font-size: 1.1rem; line-height: 2; }
+        .concept-image { flex: 1; position: relative; z-index: 2; }
+        .image-frame { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: perspective(1000px) rotateY(-10deg); transition: transform 0.5s ease; }
+        .image-frame:hover { transform: perspective(1000px) rotateY(0deg); }
+        .image-frame img { width: 100%; height: 400px; object-fit: cover; transition: transform 0.5s ease; }
+        .image-frame:hover img { transform: scale(1.05); }
+
+      /* --- メニューセクション --- */
+        .menu-grid { display: grid; gap: 30px; }
+        .menu-item { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .section-dark .menu-item { background-color: #2a2a2a; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+        .menu-item:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        .section-dark .menu-item:hover { box-shadow: 0 15px 40px rgba(255,255,255,0.1); }
+        .menu-item-image { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s ease; }
+        .menu-item:hover .menu-item-image { transform: scale(1.1); }
+        .menu-item-content { padding: 25px; }
+        .menu-item-title { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; margin-bottom: 10px; position: relative; padding-bottom: 10px; }
+        .section-dark .menu-item-title { color: #fff; }
+        .menu-item-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #e67e22; }
+        .menu-item-price { font-weight: bold; font-size: 1.2rem; color: #e67e22; margin-bottom: 15px; }
+        .section-dark .menu-item-description { color: #ccc; }
+        .lunch-examples-container { margin-top: 80px; text-align: center; }
+        .lunch-examples-title { font-family: 'Noto Serif JP', serif; font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; }
+        .section-dark .lunch-examples-title { color: #fff; }
+        .lunch-examples-title::after { content: ''; display: block; width: 50px; height: 3px; background-color: #e67e22; margin: 10px auto 0; }
+        .lunch-examples-grid { display: grid; gap: 25px; }
+        .lunch-example-item { border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .section-dark .lunch-example-item { background-color: #2a2a2a; box-shadow: 0 8px 25px rgba(255,255,255,0.05); }
+        .lunch-example-item:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+        .section-dark .lunch-example-item:hover { box-shadow: 0 12px 30px rgba(255,255,255,0.1); }
+        .lunch-example-image { width: 100%; height: 220px; object-fit: cover; }
+        .lunch-example-caption { padding: 20px; font-size: 1rem; line-height: 1.6; font-weight: 500; }
+        .section-dark .lunch-example-caption { color: #f0f0f0; }
         
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: #333;
-            line-height: 1.8;
-            overflow-x: hidden;
+      /* --- ギャラリーセクション --- */
+        .gallery-grid { display: grid; grid-auto-rows: 200px; gap: 15px; }
+        .gallery-item { overflow: hidden; border-radius: 10px; position: relative; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7)); opacity: 0; transition: opacity 0.3s ease; }
+        .gallery-item:hover::after { opacity: 1; }
+        @media (min-width: 769px) { /* PC Gallery Layout */
+            .gallery-grid { grid-template-columns: repeat(12, 1fr); } 
+            .gallery-item:nth-child(1) { grid-column: span 6; grid-row: span 2; }
+            .gallery-item:nth-child(2) { grid-column: span 3; grid-row: span 1; }
+            .gallery-item:nth-child(3) { grid-column: span 3; grid-row: span 1; }
+            .gallery-item:nth-child(4) { grid-column: span 3; grid-row: span 1; }
+            .gallery-item:nth-child(5) { grid-column: span 3; grid-row: span 1; }
         }
-        
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-        }
-        
-        /* ヘッダー */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-            padding: 15px 0;
-        }
-        
-        header.scrolled {
-            background-color: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #fff;
-            text-decoration: none;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
-        .nav-list {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-        
-        .nav-list a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            padding-bottom: 5px;
-            transition: color 0.3s;
-        }
-        
-        .nav-list a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #e67e22;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-list a:hover {
-            color: #e67e22;
-        }
-        
-        .nav-list a:hover::after {
-            width: 100%;
-        }
-        
-        /* ハンバーガーメニュー */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            width: 30px;
-            height: 25px;
-            position: relative;
-            z-index: 1001; /* nav-list より手前 */
-        }
-        
-        .hamburger span {
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            background-color: #fff;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        .hamburger span:nth-child(1) {
-            top: 0;
-        }
-        
-        .hamburger span:nth-child(2) {
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .hamburger span:nth-child(3) {
-            bottom: 0;
-        }
-        
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(10px) rotate(45deg);
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-10px) rotate(-45deg);
-        }
-        
-        /* ヒーローセクション */
-        .hero {
-            height: 100vh;
-            background-image: url('隠れ家的レストランのマーム.webp');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
-            z-index: 1;
-        }
-        
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            z-index: 2;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            color: white;
-            max-width: 800px;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
-        .hero-title {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 4rem;
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: fadeInUp 1s forwards 0.5s;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            font-weight: 300;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s forwards 0.8s;
-        }
-        
-        .hero-description {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            line-height: 1.8;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s forwards 1.1s;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
-        
-        .scroll-down svg {
-            width: 30px;
-            height: 30px;
-            fill: #fff;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0) translateX(-50%);
-            }
-            40% {
-                transform: translateY(-15px) translateX(-50%);
-            }
-            60% {
-                transform: translateY(-7px) translateX(-50%);
-            }
-        }
-        
-        /* ボタン */
-        .button {
+
+      /* --- 店舗情報セクション --- */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .info-box { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease; display: flex; align-items: flex-start; gap: 20px; }
+        .info-box:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .info-icon { width: 50px; height: 50px; background-color: #e67e22; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .info-text-content { flex: 1; text-align: left; } 
+        .info-title { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; margin-bottom: 15px; position: relative; padding-bottom: 10px; }
+        .info-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #e67e22; }
+        .info-list { list-style: none; padding: 0; margin: 0; }
+        .info-list li { margin-bottom: 10px; padding-left: 25px; position: relative; line-height: 1.6; font-size: 0.95rem;}
+        .info-list li::before { content: '◆'; position: absolute; left: 0; color: #e67e22; font-size: 0.7rem; top: 4px; }
+        .map-container { margin-top: 60px; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; height: 400px; }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+        .access-info-container { margin-top: 40px; }
+
+      /* --- 予約セクション --- */
+        .reservation-form-container { max-width: 700px; margin: 0 auto; background-color: #fff; padding: 40px 30px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .form-control::placeholder { color: #aaa; opacity: 1; }
+        .form-control:focus { border-color: #e67e22; box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2); outline: none; }
+       
+        /* ラベル用 */
+       .label-mark {
             display: inline-block;
-            padding: 15px 40px;
-            background-color: #e67e22;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: fadeInUp 1s forwards 1.4s;
-        }
-        
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s ease;
-            z-index: -1;
-        }
-        
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.6);
-        }
-        
-        .button:hover::before {
-            left: 100%;
-        }
-        
-        .button-secondary {
-            background-color: transparent;
-            border: 2px solid #fff;
-            margin-left: 15px;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-        }
-        
-        .button-secondary:hover {
-            background-color: #fff;
-            color: #333;
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
-        }
-        
-        /* セクション共通 */
-        .section {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        
-        .section-dark {
-            background-color: #1a1a1a;
-            color: #fff;
-        }
-        
-        .section-light {
-            background-color: #fff;
-        }
-        
-        .section-gray {
-            background-color: #f8f8f8;
-        }
-        
-        .section-title-container {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        
-        .section-subtitle {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.2rem;
-            color: #e67e22;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-        
-        .section-title {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 2.8rem;
-            margin-bottom: 25px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: #e67e22;
-            margin: 15px auto;
-        }
-        
-        .section-description {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .section-dark .section-title,
-        .section-dark .section-description {
-            color: #fff;
-        }
-        
-        /* 漢字装飾 */
-        .kanji-decoration {
-            position: absolute;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 12rem;
-            color: rgba(0, 0, 0, 0.03);
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .section-dark .kanji-decoration {
-            color: rgba(255, 255, 255, 0.03);
-        }
-        
-        .kanji-top-right {
-            top: -50px;
-            right: 50px;
-        }
-        
-        .kanji-bottom-left {
-            bottom: -50px;
-            left: 50px;
-        }
-        
-        /* コンセプトセクション */
-        .concept {
-            padding: 150px 0;
-            background-color: #f8f8f8;
-            position: relative;
-        }
-        
-        .concept-content {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-        
-        .concept-text {
-            flex: 1;
-            z-index: 2;
-        }
-        
-        .concept-text p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            line-height: 2;
-        }
-        
-        .concept-image {
-            flex: 1;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .image-frame {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transform: perspective(1000px) rotateY(-10deg);
-            transition: transform 0.5s ease;
-        }
-        
-        .image-frame:hover {
-            transform: perspective(1000px) rotateY(0deg);
-        }
-        
-        .image-frame img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .image-frame:hover img {
-            transform: scale(1.05);
-        }
-        
-        /* メニューセクション */
-        .menu {
-            background-color: #fff;
-            padding: 150px 0;
-            position: relative;
-        }
-        
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .menu-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            background-color: #fff;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
-        
-        .menu-item-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .menu-item:hover .menu-item-image {
-            transform: scale(1.1);
-        }
-        
-        .menu-item-content {
-            padding: 25px;
-        }
-        
-        .menu-item-title {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .menu-item-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: #e67e22;
-        }
-        
-        .menu-item-price {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #e67e22;
-            margin-bottom: 15px;
-        }
-        
-        .menu-item-description {
-            line-height: 1.8;
-            color: #666;
-        }
-        
-        /* ギャラリーセクション */
-        .gallery {
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 150px 0;
-            position: relative;
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: 200px;
-            gap: 15px;
-        }
-        
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 10px;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .gallery-item:nth-child(1) {
-            grid-column: span 6;
-            grid-row: span 2;
-        }
-        
-        .gallery-item:nth-child(2) {
-            grid-column: span 3;
-            grid-row: span 1;
-        }
-        
-        .gallery-item:nth-child(3) {
-            grid-column: span 3;
-            grid-row: span 1;
-        }
-        
-        .gallery-item:nth-child(4) {
-            grid-column: span 3;
-            grid-row: span 1;
-        }
-        
-        .gallery-item:nth-child(5) {
-            grid-column: span 3;
-            grid-row: span 1;
-        }
-        
-        .gallery-item:nth-child(6) {
-            grid-column: span 4;
-            grid-row: span 1;
-        }
-        
-        .gallery-item:nth-child(7) {
-            grid-column: span 4;
-            grid-row: span 1;
-        }
-        
-        .gallery-item:nth-child(8) {
-            grid-column: span 4;
-            grid-row: span 1;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .gallery-item:hover::after {
-            opacity: 1;
-        }
-        
-        /* 店舗情報セクション */
-        .info {
-            background-color: #f8f8f8;
-            padding: 150px 0;
-            position: relative;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .info-box {
-            background-color: #fff;
-            padding: 40px 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .info-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-        
-        .info-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #e67e22;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .info-title {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .info-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: #e67e22;
-        }
-        
-        .info-list {
-            list-style: none;
-        }
-        
-        .info-list li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-            line-height: 1.6;
-        }
-        
-        .info-list li::before {
-            content: '◆';
-            position: absolute;
-            left: 0;
-            color: #e67e22;
             font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+            vertical-align: middle;
         }
-        
-        .map-container {
-            margin-top: 60px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
-            height: 400px;
-        }
-        
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        
-        /* 予約セクション */
-        .reservation {
-            background-color: #fff;
-            padding: 150px 0;
-            position: relative;
-        }
-        
-        .reservation-form-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .form-control:focus {
-            border-color: #e67e22;
-            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
-            outline: none;
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .form-col {
-            flex: 1;
-        }
-        
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
+        .label-required {
             background-color: #e67e22;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
+         }
+        .label-optional {
+             background-color: #ccc;
+             color: #333;
         }
-        
-        .submit-btn:hover {
-            background-color: #d35400;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
-        }
-        
-        .tel-reservation {
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        .tel-reservation p {
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        .tel-number {
-            display: inline-block;
-            font-size: 1.5rem;
-            color: #e67e22;
-            font-weight: bold;
-            margin: 0 auto;
-        }
-        
-        /* フッター */
-        footer {
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 80px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-bottom: 60px;
-        }
-        
-        .footer-section h3 {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-        
-        .footer-section h3::after {
-            content: '';
+       /* ハニーポット（スパム対策）は非表示に */
+        .honeypot {
             position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: #e67e22;
-        }
+            left: -5000px;
+            opacity: 0;
+            pointer-events: none;
+         }
+
+        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #e67e22; color: #fff; border: none; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+        .submit-btn:hover { background-color: #d35400; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); }
+        .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
         
-        .footer-section p {
-            margin-bottom: 15px;
-            opacity: 0.7;
-            line-height: 1.8;
-        }
-        
-        .footer-info-list {
-            list-style: none;
-        }
-        
-        .footer-info-list li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .footer-info-list li svg {
-            width: 20px;
-            height: 20px;
-            fill: #e67e22;
-            margin-right: 15px;
-            flex-shrink: 0;
-            margin-top: 5px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
+        #form-message {
+            padding: 15px;
             margin-top: 20px;
-        }
-        
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: #fff;
-        }
-        
-        .social-icon:hover {
-            background-color: #e67e22;
-            transform: translateY(-3px);
-        }
-        
-        .footer-divider {
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.1);
-            margin-bottom: 30px;
-        }
-        
-        .copyright {
+            border-radius: 5px;
             text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.5;
+            font-weight: bold;
+            display: none; /* 初期状態は非表示 */
+        }
+         #form-message.success {
+            background-color: #e0f2e9;
+            border: 1px solid #5cb85c;
+            color: #3c763d;
+         }
+          #form-message.error {
+            background-color: #f2dede;
+            border: 1px solid #d9534f;
+            color: #a94442;
+         }
+
+        .tel-reservation { text-align: center; margin-top: 40px; }
+        .tel-reservation p { margin-bottom: 10px; font-weight: bold; }
+        .tel-number { display: inline-block; font-size: 1.5rem; color: #e67e22; font-weight: bold; margin: 0 auto; }
+        
+      /* --- フッター --- */
+        footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 60px; }
+        .footer-section h3 { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; }
+        .footer-section h3::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 40px; height: 2px; background-color: #e67e22; }
+        .footer-section p { margin-bottom: 15px; opacity: 0.7; line-height: 1.8; }
+        .footer-info-list { list-style: none; padding: 0; margin: 0; }
+        .footer-info-list li { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-info-list li svg { width: 20px; height: 20px; fill: #e67e22; margin-right: 15px; flex-shrink: 0; margin-top: 5px; }
+        .social-links { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; transition: all 0.3s ease; }
+        .social-icon svg { width: 20px; height: 20px; fill: #fff; }
+        .social-icon:hover { background-color: #e67e22; transform: translateY(-3px); }
+        .footer-divider { height: 1px; background-color: rgba(255, 255, 255, 0.1); margin-bottom: 30px; }
+        .copyright { text-align: center; font-size: 0.9rem; opacity: 0.5; }
+        
+      /* --- レスポンシブ対応 --- */
+        @media (min-width: 1024px) { /* PC */
+            .menu-grid, .lunch-examples-grid { grid-template-columns: repeat(2, 1fr); }
+             .info-grid { grid-template-columns: repeat(3, 1fr); } /* Info Boxは3列に */
         }
         
-        /* レスポンシブ対応 */
-        @media (max-width: 1024px) {
-            .hero-title {
-                font-size: 3.5rem;
-            }
-            
-            .concept-content {
-                flex-direction: column;
-            }
-            
-            .section {
-                padding: 80px 0;
-            }
-            
-            .gallery-grid {
-                grid-auto-rows: 150px;
-            }
+        @media (max-width: 1023px) and (min-width: 769px) { /* Tablet Landscape */
+             .hero-title { font-size: 3.5rem; }
+             .section { padding: 80px 0; }
+             .menu-grid, .lunch-examples-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+             .gallery-grid { grid-auto-rows: 220px; }
         }
         
-        @media (max-width: 768px) {
-            .nav-list {
-                display: none; /* 初期は非表示 */
-                flex-direction: column;
-                position: absolute;
-                top: 100%; /* ヘッダーのすぐ下 */
-                left: 0;
-                right: 0;
-                background-color: rgba(20, 20, 20, 0.98); /* 背景色を少し調整 */
-                padding: 15px 0;
-                box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-                z-index: 999; /* ハンバーガーより奥 */
-            }
+        @media (max-width: 768px) { /* Tablet Portrait & SP */
+            .nav-list { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background-color: rgba(20, 20, 20, 0.98); padding: 15px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.2); z-index: 999; }
+            .nav-list.active { display: flex; }
+            .nav-list li { width: 100%; text-align: center; }
+            .nav-list a { padding: 12px 20px; display: block; width: 100%; font-size: 1.1rem; }
+            .nav-list a::after { left: 50%; transform: translateX(-50%); }
+            .nav-list a:hover::after { width: 30%; }
+            .hamburger { display: block; }
             
-            .nav-list.active {
-                display: flex; /* activeクラスで表示 */
-            }
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.4rem; }
+            .button { padding: 12px 30px; }
+            
+            .section-title { font-size: 2.2rem; }
+            .lunch-examples-title { font-size: 1.8rem; }
+            .concept, .menu, .gallery, .info, .reservation { padding: 80px 0; }
 
-            .nav-list li {
-                width: 100%;
-                text-align: center;
-            }
-        
-            .nav-list a {
-                padding: 12px 20px; /* パディング調整 */
-                display: block;
-                width: 100%;
-                font-size: 1.1rem; /* フォントサイズ調整 */
-            }
-        
-            .nav-list a::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        
-            .nav-list a:hover::after {
-                width: 30%; /* 下線の長さを調整 */
-            }
+            .concept-content { flex-direction: column-reverse; gap: 40px; } 
+            .image-frame { transform: perspective(1000px) rotateY(0deg); } 
             
-            .hamburger {
-                display: block;
-            }
+            .menu-grid, .lunch-examples-grid { grid-template-columns: 1fr; } 
             
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.4rem;
-            }
-            
-            .button {
-                padding: 12px 30px;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .concept, .menu, .gallery, .info, .reservation {
-                padding: 80px 0;
-            }
-            
-            .gallery-item:nth-child(1) {
-                grid-column: span 12;
-            }
-            
-            .gallery-item:nth-child(n+2) {
-                grid-column: span 6;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0; /* form-group の margin-bottom で調整 */
-            }
-            .form-row .form-col .form-group { /* 連続する場合の最後のマージンをリセット */
-                margin-bottom: 15px;
-            }
-             .form-row .form-col:last-child .form-group {
-                margin-bottom: 25px; /* 通常のform-groupのマージンに戻す */
-            }
+            .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 280px; }
+            .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
 
+            .info-box { flex-direction: column; align-items: center; text-align: center; } 
+            .info-icon { margin-bottom: 15px; }
+            .info-text-content { width: 100%; text-align: left; } 
+            .info-title { text-align: center; }
+            .info-title::after { margin-left: auto; margin-right: auto; }
 
+            /* 予約フォームのRowは不要になった */
+           /* .form-row { flex-direction: column; gap: 0; } */
+           /* .form-row .form-col .form-group { margin-bottom: 15px; } */
+           /* .form-row .form-col:last-child .form-group { margin-bottom: 25px; } */
         }
         
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .button {
-                padding: 10px 25px;
-            }
-             .hero-content > div { /* ボタンコンテナ */
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-            .hero-content .button { /* ヒーローセクション内のボタンをブロック要素に */
-                display: block;
-                margin-left: 0; /* button-secondary のマージンリセット */
-                width: 80%;
-                margin: 0 auto 10px;
-            }
+        @media (max-width: 480px) { /* Smaller SP */
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .button { padding: 10px 25px; }
+            .hero-content > div { display: flex; flex-direction: column; gap: 15px; }
+            .hero-content .button { display: block; margin-left: 0; width: 80%; margin: 0 auto 10px; }
 
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .gallery-item:nth-child(n) {
-                grid-column: span 12;
-            }
-            
-            .reservation-form-container {
-                padding: 30px 20px;
-            }
+            .section-title { font-size: 1.8rem; }
+            .lunch-examples-title { font-size: 1.6rem; }
+            .gallery-grid { grid-auto-rows: 250px; } 
+            .reservation-form-container { padding: 30px 20px; }
+            .info-box { padding: 25px; }
+            .info-title { font-size: 1.2rem;}
+            .info-list li { font-size: 0.9rem;}
         }
+
     </style>
 </head>
 <body>
@@ -1057,125 +304,87 @@
                     <li><a href="#info">店舗情報</a></li>
                     <li><a href="#reservation">ご予約</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="hamburger"><span></span><span></span><span></span></div>
             </nav>
         </div>
     </header>
     
-    <section class="hero">
+     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">ma'am（マーム）</h1>
-            <p class="hero-subtitle">旨味が浸み込んだ季節の鮮魚と厳選日本酒</p>
-            <p class="hero-description">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした隠れ家的な居酒屋。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
+            <p class="hero-subtitle">旨味が浸み込んだ季節の鮮魚と旬菜の彩り</p>
+            <p class="hero-description"><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした隠れ家的な居酒屋。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
             <div>
                 <a href="#reservation" class="button">ご予約はこちら</a>
                 <a href="#menu" class="button button-secondary">メニューを見る</a>
             </div>
         </div>
         <div class="scroll-down" onclick="document.getElementById('concept').scrollIntoView({behavior: 'smooth'})">
-            <svg viewBox="0 0 24 24">
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
     
-    <section id="concept" class="section concept">
+    <section id="concept" class="section concept section-gray">
         <div class="container">
             <span class="kanji-decoration kanji-top-right">旬</span>
             <div class="section-title-container" data-aos="fade-up">
                 <p class="section-subtitle">CONCEPT</p>
                 <h2 class="section-title">こだわりの食材と空間</h2>
-                <p class="section-description">魚市場の仲買権を持つ店主が目利きした鮮魚と地元の旬の食材。丁寧な仕事で魅せる料理と、居心地のよい空間で、ゆったりとした時間をご提供します。</p>
+                <p class="section-description">魚市場の仲買権を持つ料理人のゆうちゃんが目利きした鮮魚と地元の旬の食材。丁寧な仕事で魅せる料理と、居心地のよい空間で、ゆったりとした時間をご提供します。</p>
             </div>
-            
             <div class="concept-content">
-                <div class="concept-text" data-aos="fade-right" data-aos-delay="200">
-                    <p>ma'am（マーム）は、「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした隠れ家的なお店です。</p>
-                    <p>魚市場の仲買権を持つ店主が早朝に競り落とした新鮮な魚介類や、地元の農家から直接仕入れた季節の野菜を使用。化学調味料や既製品は一切使わず、出汁も一から丁寧に引いています。</p>
-                    <p>「味を誤魔化したくない」という店主のこだわりから、刺身醤油やポン酢も巧みなさじ加減で自家調合する手間のかけよう。この手仕事が奇をてらわない、温もりのある味を生み出しています。</p>
-                    <p>穏やかな空気で満たされたオープンキッチンの店内にはカウンター席を中心にご用意。大きな窓から見える景色を眺めながら、落ち着いた雰囲気の中でお食事をお楽しみいただけます。</p>
-                </div>
-                <div class="concept-image" data-aos="fade-left" data-aos-delay="400">
+                 <div class="concept-image" data-aos="fade-up" data-aos-delay="100"> 
                     <div class="image-frame">
                         <img src="窓からうきはの景色を楽しめる店内.webp" alt="窓からうきはの景色を楽しめる店内">
                     </div>
                 </div>
+                <div class="concept-text" data-aos="fade-up" data-aos-delay="200">
+                     <p>ma'am（マーム）は、<span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした隠れ家的なお店です。</p>
+                    <p>魚市場の仲買権を持つ店主が早朝に競り落とした新鮮な魚介類や、地元の農家から直接仕入れた季節の野菜を使用。化学調味料や既製品は一切使わず、出汁も一から丁寧に引いています。</p>
+                    <p>「味を誤魔化したくない」という店主のこだわりから、刺身醤油やポン酢も巧みなさじ加減で自家調合する手間のかけよう。この手仕事が奇をてらわない、温もりのある味を生み出しています。</p>
+                    <p>穏やかな空気で満たされたオープンキッチンの店内にはカウンター席を中心にご用意。大きな窓から見える景色を眺めながら、落ち着いた雰囲気の中でお食事をお楽しみいただけます。</p>
+                </div>
             </div>
         </div>
     </section>
     
-    <section id="menu" class="section menu">
-        <div class="container">
+    <section id="menu" class="section menu section-dark"> 
+       <div class="container">
             <span class="kanji-decoration kanji-bottom-left">味</span>
             <div class="section-title-container" data-aos="fade-up">
                 <p class="section-subtitle">MENU</p>
                 <h2 class="section-title">旬の恵みを味わう</h2>
-                <p class="section-description">お昼はランチセット（2,200円～）、夜は季節のコース料理（3,300円～）をご用意しております。一品料理や厳選したお酒も豊富にご用意しています。</p>
+                <p class="section-description">お昼はランチセット、夜は季節のコース料理をご用意しております。どちらもその日の最高の食材を活かした、心づくしの内容でおもてなしいたします。</p>
             </div>
-            
             <div class="menu-grid">
                 <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
-                    <img src="朝獲れ鮮魚の刺身盛り合わせ.webp" alt="朝獲れ鮮魚の刺身盛り合わせ" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3 class="menu-item-title">朝獲れ鮮魚の刺身盛り合わせ</h3>
-                        <p class="menu-item-price">¥2,400</p>
-                        <p class="menu-item-description">その日の朝、市場で競り落とした鮮魚を店主自らが捌いた刺身の盛り合わせ。自家製の出汁醤油でお召し上がりください。</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
-                    <img src="季節野菜と魚介の天ぷら.webp" alt="季節野菜と魚介の天ぷら" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3 class="menu-item-title">季節野菜と魚介の天ぷら</h3>
-                        <p class="menu-item-price">¥1,800</p>
-                        <p class="menu-item-description">地元農家から仕入れた旬の野菜と、新鮮な魚介を天ぷらに。サクッとした食感と素材の甘みをお楽しみください。</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
-                    <img src="menu3.jpg" alt="日本酒" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3 class="menu-item-title">厳選日本酒飲み比べセット</h3>
-                        <p class="menu-item-price">¥1,500</p>
-                        <p class="menu-item-description">全国各地から厳選した3種類の日本酒を飲み比べできるセット。季節や料理に合わせて選りすぐりの銘柄をご用意します。</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
-                    <img src="menu4.jpg" alt="ランチセット" class="menu-item-image">
+                    <img src="魚市場から直送の旬の魚介を使った一品.webp" alt="ランチセット" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">ランチセット</h3>
                         <p class="menu-item-price">¥2,200〜</p>
-                        <p class="menu-item-description">刺身、天ぷらのほか、日替わりでハンバーグや煮物などもお楽しみいただけます。小鉢、サラダ、ご飯、味噌汁、香の物付き。</p>
+                        <p class="menu-item-description">メイン料理に、小鉢、サラダ、ご飯、味噌汁、香の物が付きます。メイン料理は、お刺身、天ぷら、煮物、焼き物など、その日の仕入れ状況や季節によって変わります。旬の味覚をふんだんに盛り込んだ、お得なセットです。</p>
                     </div>
                 </div>
-                
-                <div class="menu-item" data-aos="fade-up" data-aos-delay="500">
-                    <img src="menu5.jpg" alt="夜のコース" class="menu-item-image">
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="朝獲れ鮮魚の刺身盛り合わせ.webp" alt="夜のコース" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">夜のコース料理</h3>
                         <p class="menu-item-price">¥3,300〜</p>
-                        <p class="menu-item-description">季節の食材を活かした贅沢なコース。旬の前菜、お造り、焼き物、煮物、揚げ物、食事、デザートまで、丁寧に仕上げた料理の数々をご堪能ください。</p>
+                        <p class="menu-item-description">季節の食材を活かした贅沢なコース。旬の前菜、お造り、焼き物、煮物、揚げ物、食事、デザートまで、丁寧に仕上げた料理の数々をご堪能ください。内容はご予算やご要望に応じて調整可能です。</p>
                     </div>
                 </div>
-                
-                <div class="menu-item" data-aos="fade-up" data-aos-delay="600">
-                    <img src="手作りスイーツコーナーうきは小麦のお菓子.webp" alt="自家製デザート" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3 class="menu-item-title">自家製デザート</h3>
-                        <p class="menu-item-price">¥600〜</p>
-                        <p class="menu-item-description">パウンドケーキやスコーンなど、地元の小麦粉を使用した優しい味わいの自家製デザート。季節のフルーツとともにどうぞ。</p>
-                    </div>
+            </div>
+            <div class="lunch-examples-container" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="lunch-examples-title">ランチの料理一例</h3>
+                <div class="lunch-examples-grid">
+                    <div class="lunch-example-item"><img src="季節野菜と魚介の天ぷら.webp" alt="ランチ例：季節の天ぷら" class="lunch-example-image"><p class="lunch-example-caption">旬野菜と魚介の天ぷら</p></div>
+                    <div class="lunch-example-item"><img src="職人の技が光る繊細な日本料理.webp" alt="ランチ例：煮物" class="lunch-example-image"><p class="lunch-example-caption">秘伝醤油の香味唐揚げ</p></div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="gallery" class="section gallery">
+    <section id="gallery" class="section gallery section-light"> 
         <div class="container">
             <span class="kanji-decoration kanji-top-right">彩</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -1183,37 +392,17 @@
                 <h2 class="section-title">旬の彩りを愉しむ</h2>
                 <p class="section-description">四季折々の料理と店内の雰囲気をご紹介します。</p>
             </div>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="田園風景に溶け込むうきは特産の野菜で作った一品.webp" alt="料理写真1">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="職人の技が光る繊細な日本料理.webp" alt="料理写真2">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="魚市場から直送の旬の魚介を使った一品.webp" alt="料理写真3">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
-                    <img src="自家製調味料こだわりのポン酢と醤油.webp" alt="料理写真4">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500">
-                    <img src="笑顔が素敵な店主の由紀さん.webp" alt="店内写真1">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="600">
-                    <img src="こだわり食材販売コーナーマームの特産品.webp" alt="店内写真2">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="700">
-                    <img src="料理人ゆうちゃんの腕前.webp" alt="店内写真3">
-                </div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="800">
-                    <img src="gallery8.jpg" alt="店内写真4">
-                </div>
+             <div class="gallery-grid">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="隠れ家的レストランのマーム.webp" alt="隠れ家的レストランのマーム"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150"><img src="自家製調味料こだわりのポン酢と醤油.webp" alt="自家製調味料こだわりのポン酢と醤油"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="手作りスイーツコーナーうきは小麦のお菓子.webp" alt="手作りスイーツコーナーうきは小麦のお菓子"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250"><img src="こだわり食材販売コーナーマームの特産品.webp" alt="こだわり食材販売コーナー"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="笑顔が素敵な店主の由紀さん.webp" alt="笑顔が素敵な店主の由紀さん"></div>
             </div>
         </div>
     </section>
     
-    <section id="info" class="section info">
+    <section id="info" class="section info section-gray"> 
         <div class="container">
             <span class="kanji-decoration kanji-bottom-left">情</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -1221,73 +410,45 @@
                 <h2 class="section-title">店舗情報</h2>
                 <p class="section-description">営業時間や場所など、ご来店の際にお役立てください。</p>
             </div>
-            
             <div class="info-grid">
                 <div class="info-box" data-aos="fade-up" data-aos-delay="100">
-                    <div class="info-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
-                        </svg>
+                    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg></div>
+                    <div class="info-text-content">
+                        <h3 class="info-title">営業時間</h3>
+                        <ul class="info-list"><li>【昼】11:00〜15:00（L.O. 14:30）</li><li>【夜】17:00〜22:00（L.O. 21:30）</li><li>※夜のコース料理は予約制となります</li></ul>
                     </div>
-                    <h3 class="info-title">営業時間</h3>
-                    <ul class="info-list">
-                        <li>【昼】11:00〜15:00（L.O. 14:30）</li>
-                        <li>【夜】17:00〜22:00（L.O. 21:30）</li>
-                        <li>※夜のコース料理は予約制となります</li>
-                    </ul>
                 </div>
-                
                 <div class="info-box" data-aos="fade-up" data-aos-delay="200">
-                    <div class="info-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/>
-                        </svg>
+                    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/></svg></div>
+                    <div class="info-text-content">
+                        <h3 class="info-title">定休日</h3>
+                        <ul class="info-list"><li>水曜日</li><li>第1・第3日曜日</li><li>※臨時休業あり・SNSでご確認ください</li></ul>
                     </div>
-                    <h3 class="info-title">定休日</h3>
-                    <ul class="info-list">
-                        <li>水曜日</li>
-                        <li>第1・第3日曜日</li>
-                        <li>※臨時休業あり・SNSでご確認ください</li>
-                    </ul>
                 </div>
-                
                 <div class="info-box" data-aos="fade-up" data-aos-delay="300">
-                    <div class="info-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
-                        </svg>
+                    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg></div>
+                    <div class="info-text-content">
+                        <h3 class="info-title">お支払い方法</h3>
+                        <ul class="info-list"><li>現金</li><li>クレジットカード（VISA, Master, JCB, AMEX）</li><li>電子マネー（PayPay, 楽天ペイ, d払い, etc.）</li></ul>
                     </div>
-                    <h3 class="info-title">アクセス</h3>
-                    <ul class="info-list">
-                        <li>〒839-1403</li>
-                        <li>福岡県うきは市浮羽町東隈上４５１−９</li>
-                        <li>道の駅うきはから車で約5分</li>
-                        <li>駐車場：あり（詳細はお問い合わせください）</li>
-                    </ul>
-                </div>
-                
-                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
-                    <div class="info-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="info-title">お支払い方法</h3>
-                    <ul class="info-list">
-                        <li>現金</li>
-                        <li>クレジットカード（VISA, Master, JCB, AMEX）</li>
-                        <li>電子マネー（PayPay, 楽天ペイ, d払い, etc.）</li>
-                    </ul>
                 </div>
             </div>
-            
-            <div class="map-container" data-aos="fade-up" data-aos-delay="500">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.985561180823!2d130.74157887578963!3d33.42352614965486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541a13d3c9a2837%3A0x2db99699245053e3!2z44CSODM5LTE0MDMg56aP5bKh55yM44GG44GN44Gv5biC5rWm572X55S65p2x6ZqU5LiK77yU77yV77yR4oiS77yZ!5e0!3m2!1sja!2sjp!4v1716288353041!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-container" data-aos="fade-up" data-aos-delay="400">
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.262090049652!2d130.80006117577966!3d33.33200977345873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35416d84255749cd%3A0x7000d18e17d0701d!2sma'am!5e0!3m2!1sja!2sjp!4v1716357934526!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+             <div class="access-info-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="info-box"> 
+                    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/></svg></div>
+                    <div class="info-text-content">
+                        <h3 class="info-title">アクセス</h3>
+                        <ul class="info-list"><li>〒839-1403</li><li>福岡県うきは市浮羽町東隈上４５１−９</li><li>道の駅うきはから車で約5分</li><li>駐車場：あり（詳細はお問い合わせください）</li></ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     
-    <section id="reservation" class="section reservation">
+    <section id="reservation" class="section reservation section-light"> 
         <div class="container">
             <span class="kanji-decoration kanji-top-right">予</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -1295,276 +456,236 @@
                 <h2 class="section-title">ご予約</h2>
                 <p class="section-description">ご予約はお電話または以下のフォームより承っております。夜のコース料理は完全予約制となりますので、お早めにご連絡ください。</p>
             </div>
-            
             <div class="reservation-form-container" data-aos="fade-up" data-aos-delay="200">
-                <form id="reservation-form">
+               
+                <form id="reservation-form" name="reservation" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+                    <!-- Netlify用 隠しフィールド -->
+                    <input type="hidden" name="form-name" value="reservation" />
+                     <!-- ハニーポット用 隠しフィールド -->
+                     <p class="honeypot">
+                        <label>スパムでない場合は空欄のままにしてください: <input name="bot-field" /></label>
+                     </p>
+
                     <div class="form-group">
-                        <label for="name">お名前</label>
-                        <input type="text" id="name" class="form-control" required>
+                        <label for="name">お名前<span class="label-mark label-required">必須</span></label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="例：山田 太郎" required>
+                    </div>
+
+                   <div class="form-group">
+                        <label for="email">メールアドレス<span class="label-mark label-required">必須</span></label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="例：taro.yamada@example.com" required>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="email">メールアドレス</label>
-                                <input type="email" id="email" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="phone">電話番号</label>
-                                <input type="tel" id="phone" class="form-control" required>
-                            </div>
-                        </div>
+                   <div class="form-group">
+                        <label for="phone">電話番号<span class="label-mark label-required">必須</span></label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="例：090-1234-5678" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">ご希望日<span class="label-mark label-required">必須</span></label>
+                        <input type="date" id="date" name="date" class="form-control" required>
+                    </div>
+                     
+                    <div class="form-group">
+                         <label for="time">ご希望時間<span class="label-mark label-required">必須</span></label>
+                         <select id="time" name="time" class="form-control" required>
+                            <option value="">選択してください</option>
+                            <option value="11:00">11:00</option><option value="11:30">11:30</option><option value="12:00">12:00</option><option value="12:30">12:30</option><option value="13:00">13:00</option><option value="13:30">13:30</option>
+                            <option value="17:00">17:00</option><option value="17:30">17:30</option><option value="18:00">18:00</option><option value="18:30">18:30</option><option value="19:00">19:00</option><option value="19:30">19:30</option><option value="20:00">20:00</option>
+                        </select>
+                    </div>
+
+                   <div class="form-group">
+                        <label for="people">人数<span class="label-mark label-required">必須</span></label>
+                         <select id="people" name="people" class="form-control" required>
+                            <option value="">選択してください</option>
+                            <option value="1">1名</option>
+                            <option value="2">2名</option>
+                            <option value="3">3名</option>
+                            <option value="4">4名</option>
+                            <option value="5">5名</option>
+                            <option value="6">6名</option>
+                             <option value="7+">7名以上（要相談）</option>
+                        </select>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="date">ご希望日</label>
-                                <input type="date" id="date" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="time">ご希望時間</label>
-                                <select id="time" class="form-control" required>
-                                    <option value="">選択してください</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="11:30">11:30</option>
-                                    <option value="12:00">12:00</option>
-                                    <option value="12:30">12:30</option>
-                                    <option value="13:00">13:00</option>
-                                    <option value="13:30">13:30</option>
-                                    <option value="17:00">17:00</option>
-                                    <option value="17:30">17:30</option>
-                                    <option value="18:00">18:00</option>
-                                    <option value="18:30">18:30</option>
-                                    <option value="19:00">19:00</option>
-                                    <option value="19:30">19:30</option>
-                                    <option value="20:00">20:00</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="people">人数</label>
-                                <select id="people" class="form-control" required>
-                                    <option value="">選択してください</option>
-                                    <option value="1">1名</option>
-                                    <option value="2">2名</option>
-                                    <option value="3">3名</option>
-                                    <option value="4">4名</option>
-                                    <option value="5">5名</option>
-                                    <option value="6">6名</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="course">コース</label>
-                                <select id="course" class="form-control">
-                                    <option value="">選択してください</option>
-                                    <option value="lunch">ランチ</option>
-                                    <option value="dinner-basic">夜のコース（3,300円）</option>
-                                    <option value="dinner-premium">夜のコース（5,500円）</option>
-                                    <option value="alacarte">アラカルト</option>
-                                </select>
-                            </div>
-                        </div>
+                   <div class="form-group">
+                        <label for="course">コース<span class="label-mark label-optional">任意</span></label>
+                         <select id="course" name="course" class="form-control">
+                            <option value="">コースを選択 (任意)</option>
+                            <option value="lunch">ランチ</option>
+                            <option value="dinner-basic">夜のコース（3,300円）</option>
+                            <option value="dinner-premium">夜のコース（5,500円）</option>
+                             <option value="alacarte">夜のアラカルト利用</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">ご要望（アレルギーなど）</label>
-                        <textarea id="message" class="form-control" rows="4"></textarea>
+                        <label for="message">ご要望（アレルギーなど）<span class="label-mark label-optional">任意</span></label>
+                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="アレルギー情報や、記念日でのご利用など、ご要望があればご記入ください。"></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-btn">予約を送信する</button>
+                    <button type="submit" id="submit-button" class="submit-btn">予約内容を送信する</button>
                 </form>
                 
-                <div class="tel-reservation">
-                    <p>お電話でのご予約・お問い合わせ</p>
-                    <a href="tel:0943-76-9221" class="tel-number">TEL: 0943-76-9221</a>
-                </div>
+                <div id="form-message"></div> <!-- 送信結果メッセージ表示用 -->
+                
+                <div class="tel-reservation"><p>お電話でのご予約・お問い合わせ</p><a href="tel:0943-76-9221" class="tel-number">TEL: 0943-76-9221</a></div>
             </div>
         </div>
     </section>
     
-    <footer>
+     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>ma'am（マーム）</h3>
-                    <p>「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」をコンセプトにした居酒屋です。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
+                     <p><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした居酒屋です。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
                     <div class="social-links">  
-                        <a href="https://www.instagram.com/maamgram_/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/>
-                            </svg>
-                        </a>
+                        <a href="https://www.instagram.com/maamgram_/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
+                        <a href="#" class="social-icon" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/></svg></a>
                     </div>
                 </div>
-                
                 <div class="footer-section">
                     <h3>営業情報</h3>
                     <ul class="footer-info-list">
-                        <li>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
-                            </svg>
-                            <span>
-                                【昼】11:00〜15:00（L.O. 14:30）<br>
-                                【夜】17:00〜22:00（L.O. 21:30）
-                            </span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/>
-                            </svg>
-                            <span>定休日: 水曜日、第1・第3日曜日</span>
-                        </li>
+                        <li><svg viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg><span>【昼】11:00〜15:00（L.O. 14:30）<br>【夜】17:00〜22:00（L.O. 21:30）</span></li>
+                        <li><svg viewBox="0 0 24 24"><path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/></svg><span>定休日: 水曜日、第1・第3日曜日</span></li>
                     </ul>
                 </div>
-                
                 <div class="footer-section">
                     <h3>お問い合わせ</h3>
                     <ul class="footer-info-list">
-                        <li>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
-                            </svg>
-                            <span>〒839-1403<br>福岡県うきは市浮羽町東隈上４５１−９</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
-                            </svg>
-                            <span>TEL: 0943-76-9221</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
-                            </svg>
-                            <span>Email: info@example.com</span>
-                        </li>
+                        <li><svg viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/></svg><span>〒839-1403<br>福岡県うきは市浮羽町東隈上４５１−９</span></li>
+                        <li><svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg><span>TEL: 0943-76-9221</span></li>
+                        <li><svg viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg><span>Email: info@example.com</span></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-divider"></div>
-            
-            <div class="copyright">
-                <p>© <span id="copyright-year"></span> ma'am（マーム） All Rights Reserved.</p>
-            </div>
+            <div class="copyright"><p>© <span id="copyright-year"></span> ma'am（マーム） All Rights Reserved.</p></div>
         </div>
     </footer>
     
-    <!-- JavaScriptの読み込み -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        // AOSの初期化
-        AOS.init({
-            duration: 800,
-            easing: 'ease',
-            once: true,
-            offset: 200,
-        });
+     <script>
+        AOS.init({ duration: 800, easing: 'ease', once: true, offset: 150 });
         
-        // グローバルスコープまたは関数外で要素を取得
         const header = document.getElementById('header');
         const heroSection = document.querySelector('.hero');
         const kanjiDecorations = document.querySelectorAll('.kanji-decoration');
         const hamburger = document.querySelector('.hamburger');
         const navList = document.querySelector('.nav-list');
-        const navLinks = document.querySelectorAll('.nav-list a');
-
-        // スクロールイベント処理
+       
         function handleScroll() {
             const scrollY = window.scrollY;
-
-            // ヘッダーのスクロール対応
-            if (header) {
-                if (scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            }
-
-            // ヒーロー画像のパララックス
-            if (heroSection) {
-                heroSection.style.backgroundPositionY = scrollY * 0.5 + 'px';
-            }
-
-            // セクションごとの漢字装飾のパララックス
-            kanjiDecorations.forEach(function(kanji) {
+            if (header) { header.classList.toggle('scrolled', scrollY > 50); }
+            if (heroSection) { heroSection.style.backgroundPositionY = scrollY * 0.3 + 'px'; }
+            kanjiDecorations.forEach(kanji => {
                 const parent = kanji.closest('.section');
                 if (parent) {
-                    const parentTop = parent.offsetTop;
-                    const speed = kanji.classList.contains('kanji-top-right') ? 0.2 : -0.2;
-                    const yPos = (scrollY - parentTop) * speed;
-                    kanji.style.transform = 'translateY(' + yPos + 'px)';
+                    const parentRect = parent.getBoundingClientRect();
+                    if (parentRect.top < window.innerHeight && parentRect.bottom > 0) {
+                        const speed = kanji.classList.contains('kanji-top-right') ? 0.15 : -0.15;
+                        const yPos = (window.innerHeight - parentRect.top) * speed;
+                        kanji.style.transform = 'translateY(' + yPos + 'px)';
+                    }
                 }
             });
         }
         window.addEventListener('scroll', handleScroll);
         
-        // ハンバーガーメニューの処理
+        // --- ハンバーガーメニュー ---
         if (hamburger && navList) {
             hamburger.addEventListener('click', () => {
                 hamburger.classList.toggle('active');
                 navList.classList.toggle('active');
+                document.body.style.overflow = navList.classList.contains('active') ? 'hidden' : '';
             });
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (hamburger.classList.contains('active')) {
-                        hamburger.classList.remove('active');
-                        navList.classList.remove('active');
-                    }
-                });
-            });
+             // クローズ処理はスムーススクロール内に統合
         }
         
-        // 予約フォームの送信処理 (ダミー)
+       // --- フォーム送信処理 ---
         const reservationForm = document.getElementById('reservation-form');
+        const formMessage = document.getElementById('form-message');
+        const submitButton = document.getElementById('submit-button');
+
         if (reservationForm) {
-            reservationForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                alert('ご予約ありがとうございます。確認のためお電話させていただく場合がございます。');
-                reservationForm.reset();
+            reservationForm.addEventListener('submit', event => {
+              event.preventDefault(); // デフォルトの送信を常にキャンセル
+             
+              // 確認ダイアログ
+              const isConfirmed = window.confirm('この内容で予約を送信します。よろしいですか？');
+              
+              if (!isConfirmed) {
+                 return; // キャンセルされたら何もしない
+              }
+
+              // メッセージをクリアし、ボタンを無効化
+              formMessage.style.display = 'none';
+              formMessage.textContent = '';
+              submitButton.disabled = true;
+              submitButton.textContent = '送信中...';
+
+              const formData = new FormData(reservationForm);
+              
+              fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+              })
+              .then(() => {
+                reservationForm.reset(); // フォームをリセット
+                formMessage.textContent = 'ご予約ありがとうございます。内容を確認し、折り返しご連絡いたします。';
+                formMessage.className = 'success';
+             })
+              .catch(error => {
+                 console.error('Form submission error:', error);
+                 formMessage.textContent = '送信エラーが発生しました。お手数ですが、お電話にてお問い合わせください。 (TEL: 0943-76-9221)';
+                 formMessage.className = 'error';
+              })
+              .finally(() => {
+                 formMessage.style.display = 'block';
+                 submitButton.disabled = false; // ボタンを再度有効化
+                 submitButton.textContent = '予約内容を送信する';
+              });
             });
         }
         
-        // スムーススクロール (既存のものはナビリンククリックでメニューが閉じる処理と干渉する可能性があるため、navLinksに対する処理は上記に統合)
+       // --- スムーススクロール ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            if (!anchor.closest('.nav-list')) { 
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                const isNavClick = this.closest('.nav-list');
+                const isMobileNavActive = isNavClick && navList.classList.contains('active');
+
+                if (targetId && targetId !== '#') {
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         e.preventDefault();
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                        const headerOffset = header ? header.offsetHeight : 0;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 20; 
+
+                        if (isMobileNavActive) {
+                            // モバイルメニューが開いていたら、閉じてからスクロール
+                            hamburger.classList.remove('active');
+                            navList.classList.remove('active');
+                            document.body.style.overflow = '';
+                            setTimeout(() => window.scrollTo({ top: offsetPosition, behavior: 'smooth' }), 300); // 閉じるのを待つ
+                        } else {
+                             // PCまたは閉じた状態のメニューからのクリック
+                            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                        }
                     }
-                });
-            }
+                }
+            });
         });
 
-        // コピーライトの年を動的に設定
+       // --- コピーライト年 ---
         const copyrightYearSpan = document.getElementById('copyright-year');
-        if (copyrightYearSpan) {
-            copyrightYearSpan.textContent = new Date().getFullYear();
-        }
+        if (copyrightYearSpan) { copyrightYearSpan.textContent = new Date().getFullYear(); }
     </script>
+
 </body>
 </html>
