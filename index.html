@@ -15,14 +15,18 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; }
 
        /* 下線スタイル */
-        .sumi-underline {
-            background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.25) 75%);
-            display: inline;
-            padding: 0 2px;
-        }
-        .section-dark .sumi-underline {
-             background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.4) 75%);
-        }
+        .sumi-underline { background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.25) 75%); display: inline; padding: 0 2px; }
+        .section-dark .sumi-underline { background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.4) 75%); }
+       
+        /* ファビコン */
+        <!-- 基本のファビコン -->
+        <link rel="icon" href="/favicon.ico" sizes="any">
+        <!-- SVGファビコン -->
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <!-- Apple Touch Icon -->
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <!-- ウェブマニフェスト -->
+        <link rel="manifest" href="/site.webmanifest">
 
       /* --- ヘッダー --- */
         header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: background-color 0.3s ease; padding: 15px 0; }
@@ -139,8 +143,8 @@
         .info-box:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
         .info-icon { width: 50px; height: 50px; background-color: #e67e22; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
         .info-text-content { flex: 1; text-align: left; } 
-        .info-title { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; margin-bottom: 15px; position: relative; padding-bottom: 10px; }
-        .info-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #e67e22; }
+        .info-title { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; margin-bottom: 15px; position: relative; padding-bottom: 10px; text-align: left; } /* text-align: left追加 */
+        .info-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #e67e22; /* margin 제거 */ }
         .info-list { list-style: none; padding: 0; margin: 0; }
         .info-list li { margin-bottom: 10px; padding-left: 25px; position: relative; line-height: 1.6; font-size: 0.95rem;}
         .info-list li::before { content: '◆'; position: absolute; left: 0; color: #e67e22; font-size: 0.7rem; top: 4px; }
@@ -150,59 +154,47 @@
 
       /* --- 予約セクション --- */
         .reservation-form-container { max-width: 700px; margin: 0 auto; background-color: #fff; padding: 40px 30px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column; /* Default: SP */
+            align-items: flex-start;
+            gap: 5px;
+         }
+        .form-group.textarea-group { align-items: flex-start; }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px; 
+         }
+        .form-group.textarea-group label { width: 100%; }
+
+        .form-control {
+             width: 100%; 
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+         }
         .form-control::placeholder { color: #aaa; opacity: 1; }
         .form-control:focus { border-color: #e67e22; box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2); outline: none; }
        
-        /* ラベル用 */
-       .label-mark {
-            display: inline-block;
-            font-size: 0.8rem;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-        .label-required {
-            background-color: #e67e22;
-            color: #fff;
-         }
-        .label-optional {
-             background-color: #ccc;
-             color: #333;
-        }
-       /* ハニーポット（スパム対策）は非表示に */
-        .honeypot {
-            position: absolute;
-            left: -5000px;
-            opacity: 0;
-            pointer-events: none;
-         }
+        /* ラベル用マーク */
+       .label-mark { display: inline-block; font-size: 0.8rem; padding: 2px 6px; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
+        .label-required { background-color: #e67e22; color: #fff; }
+        .label-optional { background-color: #ccc; color: #333; }
+       
+        /* ハニーポットは非表示 */
+        .honeypot { position: absolute; left: -5000px; opacity: 0; pointer-events: none; }
 
         .submit-btn { display: block; width: 100%; padding: 15px; background-color: #e67e22; color: #fff; border: none; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
         .submit-btn:hover { background-color: #d35400; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); }
         .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
         
-        #form-message {
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-            display: none; /* 初期状態は非表示 */
-        }
-         #form-message.success {
-            background-color: #e0f2e9;
-            border: 1px solid #5cb85c;
-            color: #3c763d;
-         }
-          #form-message.error {
-            background-color: #f2dede;
-            border: 1px solid #d9534f;
-            color: #a94442;
-         }
+        #form-message { padding: 15px; margin-top: 20px; border-radius: 5px; text-align: center; font-weight: bold; display: none; }
+         #form-message.success { background-color: #e0f2e9; border: 1px solid #5cb85c; color: #3c763d; }
+          #form-message.error { background-color: #f2dede; border: 1px solid #d9534f; color: #a94442; }
 
         .tel-reservation { text-align: center; margin-top: 40px; }
         .tel-reservation p { margin-bottom: 10px; font-weight: bold; }
@@ -225,9 +217,21 @@
         .copyright { text-align: center; font-size: 0.9rem; opacity: 0.5; }
         
       /* --- レスポンシブ対応 --- */
-        @media (min-width: 1024px) { /* PC */
+        @media (min-width: 769px) { /* PC & Tablet Landscape */
             .menu-grid, .lunch-examples-grid { grid-template-columns: repeat(2, 1fr); }
-             .info-grid { grid-template-columns: repeat(3, 1fr); } /* Info Boxは3列に */
+             .info-grid { grid-template-columns: repeat(3, 1fr); } 
+            /* 店舗情報 PCレイアウト調整 */
+            .info-box { flex-direction: row; align-items: flex-start; text-align: left;}
+            .info-icon { margin-bottom: 0; }
+            .info-text-content { text-align: left; }
+            .info-title { text-align: left; }
+            .info-title::after { margin-left: 0; margin-right: 0; }
+            /* フォーム PCレイアウト調整 */
+            .form-group { flex-direction: row; align-items: center; gap: 15px; }
+            .form-group label { flex-basis: 160px; text-align: left; padding-right: 10px; margin-bottom: 0; }
+            .form-control { width: auto; flex-grow: 1; }
+            .form-group.textarea-group { align-items: flex-start; }
+            .form-group.textarea-group label { padding-top: 10px; width: auto; margin-bottom: 0; }
         }
         
         @media (max-width: 1023px) and (min-width: 769px) { /* Tablet Landscape */
@@ -268,10 +272,7 @@
             .info-title { text-align: center; }
             .info-title::after { margin-left: auto; margin-right: auto; }
 
-            /* 予約フォームのRowは不要になった */
-           /* .form-row { flex-direction: column; gap: 0; } */
-           /* .form-row .form-col .form-group { margin-bottom: 15px; } */
-           /* .form-row .form-col:last-child .form-group { margin-bottom: 25px; } */
+            /* 予約フォームはデフォルトがSPスタイル（縦並び、ラベル上）なのでOK */
         }
         
         @media (max-width: 480px) { /* Smaller SP */
@@ -295,7 +296,7 @@
 <body>
     <header id="header">
         <div class="container header-inner">
-            <a href="#" class="logo">ma'am（マーム）</a>
+            <a href="#" class="logo">ma'am</a>
             <nav>
                 <ul class="nav-list">
                     <li><a href="#concept">コンセプト</a></li>
@@ -311,7 +312,7 @@
     
      <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">ma'am（マーム）</h1>
+            <h1 class="hero-title">ma'am</h1>
             <p class="hero-subtitle">旨味が浸み込んだ季節の鮮魚と旬菜の彩り</p>
             <p class="hero-description"><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした隠れ家的な居酒屋。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
             <div>
@@ -459,77 +460,55 @@
             <div class="reservation-form-container" data-aos="fade-up" data-aos-delay="200">
                
                 <form id="reservation-form" name="reservation" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-                    <!-- Netlify用 隠しフィールド -->
                     <input type="hidden" name="form-name" value="reservation" />
-                     <!-- ハニーポット用 隠しフィールド -->
-                     <p class="honeypot">
-                        <label>スパムでない場合は空欄のままにしてください: <input name="bot-field" /></label>
-                     </p>
+                     <p class="honeypot"><label>スパムでない場合は空欄のままにしてください: <input name="bot-field" /></label></p>
 
                     <div class="form-group">
-                        <label for="name">お名前<span class="label-mark label-required">必須</span></label>
+                        <label for="name"><span class="label-mark label-required">必須</span>お名前</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="例：山田 太郎" required>
                     </div>
-
                    <div class="form-group">
-                        <label for="email">メールアドレス<span class="label-mark label-required">必須</span></label>
+                        <label for="email"><span class="label-mark label-required">必須</span>メール</label>
                         <input type="email" id="email" name="email" class="form-control" placeholder="例：taro.yamada@example.com" required>
                     </div>
-                    
                    <div class="form-group">
-                        <label for="phone">電話番号<span class="label-mark label-required">必須</span></label>
-                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="例：090-1234-5678" required>
+                        <label for="phone"><span class="label-mark label-required">必須</span>電話番号</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="例：09012345678" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="date">ご希望日<span class="label-mark label-required">必須</span></label>
+                        <label for="date"><span class="label-mark label-required">必須</span>ご希望日</label>
                         <input type="date" id="date" name="date" class="form-control" required>
                     </div>
-                     
                     <div class="form-group">
-                         <label for="time">ご希望時間<span class="label-mark label-required">必須</span></label>
+                         <label for="time"><span class="label-mark label-required">必須</span>ご希望時間</label>
                          <select id="time" name="time" class="form-control" required>
-                            <option value="">選択してください</option>
+                            <option value="">時間を選択</option>
                             <option value="11:00">11:00</option><option value="11:30">11:30</option><option value="12:00">12:00</option><option value="12:30">12:30</option><option value="13:00">13:00</option><option value="13:30">13:30</option>
                             <option value="17:00">17:00</option><option value="17:30">17:30</option><option value="18:00">18:00</option><option value="18:30">18:30</option><option value="19:00">19:00</option><option value="19:30">19:30</option><option value="20:00">20:00</option>
                         </select>
                     </div>
-
                    <div class="form-group">
-                        <label for="people">人数<span class="label-mark label-required">必須</span></label>
+                        <label for="people"><span class="label-mark label-required">必須</span>人数</label>
                          <select id="people" name="people" class="form-control" required>
-                            <option value="">選択してください</option>
-                            <option value="1">1名</option>
-                            <option value="2">2名</option>
-                            <option value="3">3名</option>
-                            <option value="4">4名</option>
-                            <option value="5">5名</option>
-                            <option value="6">6名</option>
-                             <option value="7+">7名以上（要相談）</option>
+                            <option value="">人数を選択</option>
+                            <option value="1">1名</option><option value="2">2名</option><option value="3">3名</option><option value="4">4名</option><option value="5">5名</option><option value="6">6名</option><option value="7+">7名以上（要相談）</option>
                         </select>
                     </div>
-                    
                    <div class="form-group">
-                        <label for="course">コース<span class="label-mark label-optional">任意</span></label>
+                        <label for="course"><span class="label-mark label-optional">任意</span>コース</label>
                          <select id="course" name="course" class="form-control">
                             <option value="">コースを選択 (任意)</option>
                             <option value="lunch">ランチ</option>
-                            <option value="dinner-basic">夜のコース（3,300円）</option>
-                            <option value="dinner-premium">夜のコース（5,500円）</option>
-                             <option value="alacarte">夜のアラカルト利用</option>
+                            <option value="dinner-basic">夜のコース</option>
                         </select>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="message">ご要望（アレルギーなど）<span class="label-mark label-optional">任意</span></label>
-                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="アレルギー情報や、記念日でのご利用など、ご要望があればご記入ください。"></textarea>
+                    <div class="form-group textarea-group"> 
+                        <label for="message"><span class="label-mark label-optional">任意</span>ご要望</label>
+                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="アレルギー情報や、記念日でのご利用、7名様以上の場合の人数などをご記入ください。"></textarea>
                     </div>
-                    
                     <button type="submit" id="submit-button" class="submit-btn">予約内容を送信する</button>
                 </form>
-                
-                <div id="form-message"></div> <!-- 送信結果メッセージ表示用 -->
-                
+                <div id="form-message"></div> 
                 <div class="tel-reservation"><p>お電話でのご予約・お問い合わせ</p><a href="tel:0943-76-9221" class="tel-number">TEL: 0943-76-9221</a></div>
             </div>
         </div>
@@ -539,7 +518,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>ma'am（マーム）</h3>
+                    <h3>ma'am</h3>
                      <p><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした居酒屋です。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。</p>
                     <div class="social-links">  
                         <a href="https://www.instagram.com/maamgram_/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
