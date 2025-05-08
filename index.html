@@ -14,7 +14,7 @@
     <meta property="og:image" content="https://maam-ukiha.com/og-image.jpg"> <!-- TODO: 実際の画像パスに置き換えてください -->
     <meta property="og:url" content="https://maam-ukiha.com/"> <!-- TODO: 実際のURLに置き換えてください -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="ma'am うきは">
+    <meta property="og:site_name" content="ma'am（マーム）うきは">
     <meta property="og:locale" content="ja_JP">
 
     <!-- 基本のファビコン -->
@@ -162,6 +162,162 @@
         body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; overflow-x: hidden; }
         img { max-width: 100%; height: auto; display: block; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; }
+
+        /* --- 最新ブログ記事セクション --- */
+        .blog-grid {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .blog-card {
+            background-color: #fff; /* カードの背景色 */
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* カード全体をフレックスコンテナに */
+            flex-direction: column; /* 子要素を縦に並べる */
+        }
+        .section-dark .blog-card { /* ダークテーマの場合 */
+            background-color: #2a2a2a;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.05);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+        .section-dark .blog-card:hover {
+            box-shadow: 0 12px 30px rgba(255,255,255,0.1);
+        }
+
+        .blog-card-link {
+            text-decoration: none;
+            color: inherit; /* 親要素の色を継承 */
+            display: flex; /* リンク自体もフレックスコンテナに */
+            flex-direction: column;
+            height: 100%; /* カードの高さいっぱいに広がるように */
+        }
+
+        .blog-card-image-wrapper {
+            width: 100%;
+            height: 200px; /* 画像の高さを固定 */
+            overflow: hidden;
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* アスペクト比を保ちつつコンテナを埋める */
+            transition: transform 0.4s ease;
+        }
+
+        .blog-card:hover .blog-card-image {
+            transform: scale(1.05);
+        }
+
+        .blog-card-content {
+            padding: 20px;
+            flex-grow: 1; /* 残りのスペースを埋める */
+            display: flex;
+            flex-direction: column;
+        }
+        .section-dark .blog-card-content {
+            color: #f0f0f0;
+        }
+
+
+        .blog-card-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            /* 2行までに制限して、はみ出たら ... を表示する (オプション) */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: calc(1.3rem * 1.4 * 2); /* 2行分の高さを確保 */
+        }
+        .section-dark .blog-card-title {
+            color: #fff;
+        }
+
+
+        .blog-card-date {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        .section-dark .blog-card-date {
+            color: #aaa;
+        }
+
+        .blog-card-excerpt {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1; /* 続きを読むボタンを一番下に配置するため */
+            /* 3-4行までに制限して、はみ出たら ... を表示する (オプション) */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 表示したい行数 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .section-dark .blog-card-excerpt {
+            color: #ccc;
+        }
+
+        .blog-card-readmore {
+            display: inline-block;
+            font-weight: bold;
+            color: #e67e22;
+            text-decoration: none;
+            margin-top: auto; /* コンテンツの下部に配置 */
+            align-self: flex-start; /* 左寄せ */
+            padding: 5px 0;
+            position: relative;
+        }
+        .blog-card-readmore::after {
+            content: '→';
+            margin-left: 5px;
+            transition: margin-left 0.2s ease;
+        }
+        .blog-card:hover .blog-card-readmore::after {
+            margin-left: 10px;
+        }
+
+        .blog-footer {
+            text-align: center;
+            margin-top: 40px; /* グリッドとの間隔 */
+        }
+
+        /* レスポンシブ: ブロググリッド */
+        @media (min-width: 992px) { /* PC */
+            .blog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 769px) and (max-width: 991px) { /* タブレット */
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) { /* スマホ */
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            .blog-card-title {
+                font-size: 1.2rem;
+                min-height: calc(1.2rem * 1.4 * 2);
+            }
+            .section.blog { /* スマホでのセクション上下パディング調整 */
+                padding: 60px 0;
+            }
+        }
 
        /* 下線スタイル */
         .sumi-underline { background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.25) 75%); display: inline; padding: 0 2px; }
@@ -466,7 +622,7 @@
      <section class="hero">
         <div class="hero-content">
             <!-- SEO: h1タグの最適化 -->
-            <h1 class="hero-title">ma'am（マーム）うきは</h1>
+            <h1 class="hero-title">ma'am うきは</h1>
             <p class="hero-subtitle">旨味が浸み込んだ季節の鮮魚と旬菜の彩り</p>
             <!-- SEO: コンテンツの強化 (キーワード追加) -->
             <p class="hero-description"><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした<strong>福岡県うきは市の隠れ家的居酒屋・レストラン「ma'am（マーム）」</strong>。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。<strong>道の駅うきはから車で5分</strong>とアクセスも便利。<strong>うきは観光</strong>のランチにもおすすめです。</p>
@@ -737,6 +893,69 @@
         </div>
     </section>
     
+    <!-- --- 最新ブログ記事セクション --- -->
+<section id="blog" class="section blog section-light"> <!-- section-light や section-gray はお好みで -->
+    <div class="container">
+        <span class="kanji-decoration kanji-bottom-left">記</span> <!-- 必要に応じて漢字装飾 -->
+        <div class="section-title-container" data-aos="fade-up">
+            <p class="section-subtitle">BLOG</p>
+            <h2 class="section-title">ma'amブログ - うきは市の旬な情報をお届け</h2>
+            <p class="section-description">季節の食材の話、うきは市のイベント情報、お店の日常などを発信しています。</p>
+        </div>
+
+        <div class="blog-grid">
+            <!-- サンプル記事カード 1 -->
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <a href="/blog/ukiha-sightseeing-guide/" class="blog-card-link"> <!-- TODO: 実際の記事URLに置き換え -->
+                    <div class="blog-card-image-wrapper">
+                        <img src="blog-sample-image-1.webp" alt="うきは観光ガイド - 道の駅周辺のおすすめスポット" class="blog-card-image"> <!-- TODO: 実際の画像パスに置き換え -->
+                    </div>
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">うきは観光ガイド！道の駅うきはから巡るおすすめスポットと絶品ランチ</h3>
+                        <p class="blog-card-date">2024年5月25日</p>
+                        <p class="blog-card-excerpt">福岡県うきは市は自然豊かで魅力的な観光地。この記事では、道の駅うきはを拠点とした観光ルートと、その途中で立ち寄りたいma'amのランチをご紹介します...</p>
+                        <span class="blog-card-readmore">続きを読む</span>
+                    </div>
+                </a>
+            </article>
+
+            <!-- サンプル記事カード 2 -->
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <a href="/blog/stylish-lunch-spots-in-ukiha/" class="blog-card-link"> <!-- TODO: 実際の記事URLに置き換え -->
+                    <div class="blog-card-image-wrapper">
+                        <img src="blog-sample-image-2.webp" alt="うきは市のおしゃれなランチスポット特集" class="blog-card-image"> <!-- TODO: 実際の画像パスに置き換え -->
+                    </div>
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">うきは市で探す、ちょっと贅沢でおしゃれなランチスポット特集</h3>
+                        <p class="blog-card-date">2024年5月20日</p>
+                        <p class="blog-card-excerpt">特別な日のランチや、自分へのご褒美に。うきは市で見つけた、こだわりの食材と素敵な空間が楽しめるおしゃれなランチスポットをピックアップしました...</p>
+                        <span class="blog-card-readmore">続きを読む</span>
+                    </div>
+                </a>
+            </article>
+
+            <!-- サンプル記事カード 3 -->
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                <a href="/blog/maam-seasonal-ingredients/" class="blog-card-link"> <!-- TODO: 実際の記事URLに置き換え -->
+                    <div class="blog-card-image-wrapper">
+                        <img src="blog-sample-image-3.webp" alt="ma'amで味わう旬の食材 - 初夏の味覚" class="blog-card-image"> <!-- TODO: 実際の画像パスに置き換え -->
+                    </div>
+                    <div class="blog-card-content">
+                        <h3 class="blog-card-title">ma'am（マーム）で味わう旬の食材：初夏を彩るうきはの恵み</h3>
+                        <p class="blog-card-date">2024年5月15日</p>
+                        <p class="blog-card-excerpt">ma'amでは、その時期最も美味しい旬の食材を活かした料理をご提供しています。今回は初夏に味わえる、うきはならではの食材と料理のこだわりをご紹介...</p>
+                        <span class="blog-card-readmore">続きを読む</span>
+                    </div>
+                </a>
+            </article>
+        </div>
+
+        <div class="blog-footer" data-aos="fade-up">
+            <a href="/blog/" class="button">ブログ一覧を見る</a> <!-- TODO: ブログ一覧ページのURLに置き換え -->
+        </div>
+    </div>
+</section>
+
      <footer>
         <div class="container">
             <div class="footer-content">
