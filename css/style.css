@@ -498,3 +498,52 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .blog-page .blog-card-title { font-size: 1.2rem; min-height: calc(1.2rem * 1.5 * 2); }
     .article-title { font-size: 1.7rem; }
 }
+
+/* ★★★ ヘッダーとの重なり解消のための最重要修正 ★★★ */
+/* トップページ以外のページの main 要素に直接 padding-top を適用 */
+body.blog-page main.main-content,
+body.article-page main.main-content {
+    padding-top: 95px; /* PC時のヘッダー高さ(約66px) + 余白(約30px) */
+    position: relative; /* z-index を使う場合の基点 */
+    z-index: 1;      /* ヘッダー(z-index: 1000)より確実に下にする */
+}
+
+/* ★★★ レスポンシブ - スマホ表示時の調整 ★★★ */
+@media (max-width: 768px) {
+    body.blog-page main.main-content,
+    body.article-page main.main-content {
+        padding-top: 85px; /* スマホ時のヘッダー高さ(約66px) + 余白(約20px) */
+    }
+
+    /* スマホ表示で記事タイトルなどが小さくなりすぎるのを防ぐ調整（必要に応じて） */
+    .article-page .article-title {
+        font-size: 1.8rem; /* 現在の2remから少し調整 */
+        line-height: 1.4;
+    }
+    .article-page .article-meta {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body.blog-page main.main-content,
+    body.article-page main.main-content {
+        padding-top: 80px; /* さらに小さいスマホでの調整値 */
+    }
+
+    .article-page .article-title {
+        font-size: 1.6rem;
+    }
+}
+
+/* 既存の .main-content の padding-top 指定はコメントアウトまたは削除を推奨 */
+/*
+body:not(.home-page) main.main-content {
+    padding-top: 90px;
+}
+@media (max-width: 768px) {
+    body:not(.home-page) main.main-content {
+        padding-top: 75px;
+    }
+}
+*/
