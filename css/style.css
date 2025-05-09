@@ -30,7 +30,7 @@ header.scrolled { /* トップページでスクロールした時のスタイ�
 /* ブログページや記事ページでは初期からヘッダー背景を表示 */
 body.blog-page header,
 body.article-page header {
-    background-color: rgba(0, 0, 0, 0.8); /* ヘッダー自体は黒背景のまま */
+    background-color: rgba(0, 0, 0, 0.8); /* ヘッダー自体の背景は維持 */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 .header-inner { display: flex; justify-content: space-between; align-items: center; }
@@ -47,10 +47,9 @@ body.article-page header {
 .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 
 
-/* ★★★ メインコンテンツの開始位置調整 (PC表示時) ★★★ */
-/* トップページ以外のページの<main class="main-content">に適用 */
+/* メインコンテンツの開始位置調整 (PC表示時) */
 body:not(.home-page) main.main-content {
-    padding-top: 105px; /* ★★★ PC時の値を少し増やしました (例: 100px -> 105px) お使いの環境に合わせて調整してください ★★★ */
+    padding-top: 105px; /* PC時のヘッダー高さ + 十分な余白 */
     position: relative;
     z-index: 1;
 }
@@ -344,23 +343,43 @@ body.blog-page { background-color: #f8f8f8; }
 .pagination .disabled span { color: #ccc; border-color: #eee; cursor: not-allowed; }
 
 /* --- 個別記事ページ特有のスタイル --- */
-body.article-page { background-color: #fff; }
-
+body.article-page {
+    background-color: #fff; /* 個別記事ページ全体の背景を白に */
+}
 .article-header {
     text-align: center;
     margin-bottom: 40px;
     position: relative;
-    z-index: 2;
-    background-color: transparent !important; /* ★★★ ファーストビューの背景を強制的に透明に ★★★ */
-    padding: 20px 0; /* 上下の余白調整 */
+    z-index: 2; /* main.main-content より手前に来るように */
+    background-color: transparent !important; /* ★★★ ファーストビューの記事タイトルエリアの背景を強制的に透明に ★★★ */
+    padding: 20px 0; /* 上下の余白を少し確保（なくても良いが見た目調整） */
 }
 .article-title { font-family: 'Noto Serif JP', serif; font-size: 2.5rem; color: #2c3e50; margin-bottom: 15px; line-height: 1.3; }
 .article-meta { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 30px; }
 .article-meta time { margin-right: 15px; }
 .article-meta a { color: #e67e22; text-decoration: none; }
 .article-meta a:hover { text-decoration: underline; }
-.article-eyecatch { margin-bottom: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-.article-eyecatch img { width: 100%; height: auto; }
+
+.article-eyecatch {
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.article-eyecatch img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.article-content img {
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 .article-content { font-size: 1.05rem; line-height: 1.9; color: #34495e; }
 .article-content h2 { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; margin-top: 50px; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e67e22; color: #2c3e50; }
 .article-content h3 { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; margin-top: 40px; margin-bottom: 20px; color: #34495e; padding-left: 15px; border-left: 4px solid #e67e22; }
@@ -370,7 +389,6 @@ body.article-page { background-color: #fff; }
 .article-content ul, .article-content ol { margin-bottom: 20px; padding-left: 30px; }
 .article-content li { margin-bottom: 10px; }
 .article-content blockquote { margin: 30px 0; padding: 20px; background-color: #f9f9f9; border-left: 5px solid #e67e22; font-style: italic; color: #555; }
-.article-content img { margin: 30px auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.07); }
 
 /* --- 目次 (Table of Contents) --- */
 .toc { background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px 25px; margin-bottom: 40px; }
@@ -446,7 +464,7 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .nav-list a:hover::after { width: 30%; }
     .hamburger { display: block; }
 
-    /* ★★★ スマホ時のメインコンテンツ開始位置調整 ★★★ */
+    /* スマホ時のメインコンテンツ開始位置調整 */
     body:not(.home-page) main.main-content,
     body.blog-page main.main-content,
     body.article-page main.main-content {
@@ -454,6 +472,30 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
         position: relative;
         z-index: 1;
     }
+
+    /* スマホ時の個別記事ページ画像調整 */
+    .article-page .article-eyecatch {
+        width: 100vw; /* 画面幅いっぱいに */
+        margin-left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .article-page .article-eyecatch img {
+        width: 100%;
+        height: auto; /* アスペクト比維持 */
+        border-radius: 0;
+    }
+    .article-page .article-content img {
+        width: 100vw; /* 画面幅いっぱいに */
+        max-width: 100vw;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0;
+        box-shadow: none;
+        height: auto;
+    }
+
 
     .hero-title { font-size: 2.5rem; }
     .hero-subtitle { font-size: 1.4rem; }
@@ -486,12 +528,18 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
 }
 
 @media (max-width: 480px) { /* Smaller SP */
-    /* ★★★ さらに小さいスマホ時のメインコンテンツ開始位置調整 ★★★ */
+    /* さらに小さいスマホ時のメインコンテンツ開始位置調整 */
     body:not(.home-page) main.main-content,
     body.blog-page main.main-content,
     body.article-page main.main-content {
         padding-top: 80px;
     }
+
+    /* Smaller SP時の個別記事ページ画像調整 (768pxの指定を継承しつつ必要なら微調整) */
+    .article-page .article-eyecatch img {
+        /* height: 220px; */ /* 例えば高さをさらに調整する場合 */
+    }
+
 
     .hero-title { font-size: 2rem; }
     .hero-subtitle { font-size: 1.2rem; }
