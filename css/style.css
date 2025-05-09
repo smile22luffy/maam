@@ -244,8 +244,6 @@ body:not(.home-page) main.main-content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 変更: 中央寄せに */
-    text-align: center; /* 変更: テキストも中央寄せ */
 }
 .section-dark .blog-card-content { color: #f0f0f0; }
 .blog-card-title {
@@ -285,7 +283,7 @@ body:not(.home-page) main.main-content {
     color: #e67e22;
     text-decoration: none;
     margin-top: auto;
-    align-self: center; /* 変更: 左寄せから中央寄せに */
+    align-self: flex-start;
     padding: 5px 0;
     position: relative;
 }
@@ -310,11 +308,7 @@ body.blog-page { background-color: #f8f8f8; }
     margin-bottom: 40px;
     border-bottom: 1px solid #eee;
 }
-.blog-page .blog-card-content { 
-    padding: 25px;
-    align-items: center; /* 変更: 中央寄せに */
-    text-align: center; /* 変更: テキストも中央寄せ */
-}
+.blog-page .blog-card-content { padding: 25px; }
 .blog-page .blog-card-title {
     font-size: 1.4rem;
     color: #2c3e50;
@@ -333,7 +327,6 @@ body.blog-page { background-color: #f8f8f8; }
     border: 1px solid #e67e22;
     border-radius: 25px;
     transition: background-color 0.3s, color 0.3s;
-    align-self: center; /* 変更: 中央寄せに */
 }
 .blog-page .blog-card-readmore::after { content: ''; margin-left:0; }
 .blog-page .blog-card:hover .blog-card-readmore {
