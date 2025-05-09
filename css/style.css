@@ -46,14 +46,6 @@ body.article-page header {
 .hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); } .hamburger span:nth-child(3) { bottom: 0; }
 .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 
-/* ★★★ メインコンテンツの開始位置調整 ★★★ */
-/* トップページ以外のページの<main class="main-content">に適用 */
-body:not(.home-page) main.main-content {
-    padding-top: 90px; /* PC時のヘッダー高さ + 余白 (例: ヘッダーが70px高なら90px) */
-}
-/* トップページの<main class="main-content">には適用しない (ヒーローセクションが別にあるため) */
-
-
 /* --- ヒーローセクション (トップページ用) --- */
 .hero { height: 100vh; background-image: url('../images/top/料理人ゆうちゃんの腕前.webp'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); z-index: 1; }
@@ -346,7 +338,12 @@ body.blog-page { background-color: #f8f8f8; }
 /* --- 個別記事ページ特有のスタイル --- */
 body.article-page { background-color: #fff; }
 /* body:not(.home-page) main.main-content で padding-top は指定済み */
-.article-header { text-align: center; margin-bottom: 40px; }
+.article-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative; /* ★★★ これを追加または確認 ★★★ */
+    z-index: 2; /* ★★★ main.main-content より手前に来るように ★★★ */
+}
 .article-title { font-family: 'Noto Serif JP', serif; font-size: 2.5rem; color: #2c3e50; margin-bottom: 15px; line-height: 1.3; }
 .article-meta { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 30px; }
 .article-meta time { margin-right: 15px; }
@@ -440,8 +437,12 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .hamburger { display: block; }
 
     /* ★★★ スマホ時のメインコンテンツ開始位置調整 ★★★ */
-    body:not(.home-page) main.main-content {
-        padding-top: 75px; /* スマホ時のヘッダー高さ + 余白 */
+    body:not(.home-page) main.main-content,
+    body.blog-page main.main-content,     /* より具体的に指定 */
+    body.article-page main.main-content { /* より具体的に指定 */
+        padding-top: 85px; /* スマホ時のヘッダー高さ + 余白 */
+        position: relative; /* z-index を使う場合の基点 */
+        z-index: 1;      /* ヘッダー(z-index: 1000)より確実に下にする */
     }
 
     .hero-title { font-size: 2.5rem; }
@@ -451,7 +452,6 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .section-title { font-size: 2.2rem; }
     .lunch-examples-title { font-size: 1.8rem; }
     .concept, .menu, .gallery, .info, .reservation, .faq, .blog { padding: 80px 0; }
-    /* .main-content { padding-top: 100px; } */ /* こちらの指定は上記 body:not(.home-page) main.main-content でカバー */
 
     .concept-content { flex-direction: column-reverse; gap: 40px; }
     .image-frame { transform: perspective(1000px) rotateY(0deg); }
@@ -469,16 +469,19 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .blog-page .blog-card-title { font-size: 1.3rem; min-height: calc(1.3rem * 1.5 * 2); }
     .blog-page .blog-card-excerpt { font-size: 0.95rem; }
     .section.blog { padding: 60px 0; }
-    .article-title { font-size: 2rem; }
+    .article-title { font-size: 1.8rem; line-height: 1.4;} /* スマホでの記事タイトル調整 */
+    .article-meta { font-size: 0.85rem; } /* スマホでの記事メタ情報調整 */
     .article-content h2 { font-size: 1.6rem; }
     .article-content h3 { font-size: 1.3rem; }
 }
 
 @media (max-width: 480px) { /* Smaller SP */
-    /* ★★★ さらに小さいスマホ時のメインコンテンツ開始位置調整 (必要であれば) ★★★ */
-    /* body:not(.home-page) main.main-content {
-        padding-top: 70px;
-    } */
+    /* ★★★ さらに小さいスマホ時のメインコンテンツ開始位置調整 ★★★ */
+    body:not(.home-page) main.main-content,
+    body.blog-page main.main-content,     /* より具体的に指定 */
+    body.article-page main.main-content { /* より具体的に指定 */
+        padding-top: 80px; /* さらに小さいスマホでの調整値 */
+    }
 
     .hero-title { font-size: 2rem; }
     .hero-subtitle { font-size: 1.2rem; }
@@ -496,63 +499,14 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .faq-question h3 { font-size: 1rem; }
     .blog-card-title { font-size: 1.1rem; min-height: calc(1.1rem * 1.4 * 2); }
     .blog-page .blog-card-title { font-size: 1.2rem; min-height: calc(1.2rem * 1.5 * 2); }
-    .article-title { font-size: 1.7rem; }
+    .article-title { font-size: 1.6rem; } /* さらに小さいスマホでの記事タイトル調整 */
 }
 
-/* ★★★ ヘッダーとの重なり解消のための最重要修正 ★★★ */
-/* トップページ以外のページの main 要素に直接 padding-top を適用 */
-body.blog-page main.main-content,
-body.article-page main.main-content {
-    padding-top: 95px; /* PC時のヘッダー高さ(約66px) + 余白(約30px) */
-    position: relative; /* z-index を使う場合の基点 */
-    z-index: 1;      /* ヘッダー(z-index: 1000)より確実に下にする */
-}
-
-/* ★★★ レスポンシブ - スマホ表示時の調整 ★★★ */
-@media (max-width: 768px) {
-    body.blog-page main.main-content,
-    body.article-page main.main-content {
-        padding-top: 85px; /* スマホ時のヘッダー高さ(約66px) + 余白(約20px) */
-    }
-
-    /* スマホ表示で記事タイトルなどが小さくなりすぎるのを防ぐ調整（必要に応じて） */
-    .article-page .article-title {
-        font-size: 1.8rem; /* 現在の2remから少し調整 */
-        line-height: 1.4;
-    }
-    .article-page .article-meta {
-        font-size: 0.85rem;
-    }
-}
-
-@media (max-width: 480px) {
-    body.blog-page main.main-content,
-    body.article-page main.main-content {
-        padding-top: 80px; /* さらに小さいスマホでの調整値 */
-    }
-
-    .article-page .article-title {
-        font-size: 1.6rem;
-    }
-}
-
-/* 既存の .main-content の padding-top 指定はコメントアウトまたは削除を推奨 */
+/* 既存の body:not(.home-page) main.main-content の padding-top 指定は削除またはコメントアウト */
 /*
 body:not(.home-page) main.main-content {
     padding-top: 90px;
 }
-@media (max-width: 768px) {
-    body:not(.home-page) main.main-content {
-        padding-top: 75px;
-    }
-}
 */
 
-/* style.css の一番最後に追記してみてください */
-
-body.article-page main.main-content {
-    padding-top: 150px !important; /* ← !important を追加して強制的に値を大きくしてみる */
-    background-color: lightblue !important; /* ← 背景色を付けて要素の範囲を視覚的に確認 */
-    z-index: 1 !important;
-    position: relative !important;
-}
+/* ★★★ デバッグ用スタイルは削除しました ★★★ */
