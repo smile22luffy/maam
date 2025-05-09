@@ -3,41 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO: タイトルタグの最適化 -->
     <title>ma'am（マーム）| うきは市の隠れ家居酒屋・ランチ | 道の駅うきはから5分</title>
-    <!-- SEO: メタディスクリプションの追加 -->
     <meta name="description" content="福岡県うきは市の隠れ家居酒屋・レストラン「ma'am（マーム）」。魚市場直送の鮮魚と地元野菜を使った本格和食ランチ2,200円〜、夜はコース料理3,300円〜。道の駅うきはから車で5分、うきは観光の際にぜひお立ち寄りください。">
 
-    <!-- SEO: OGPタグの追加 -->
     <meta property="og:title" content="ma'am（マーム）| うきは市の隠れ家居酒屋・ランチ">
     <meta property="og:description" content="うきは市の隠れ家居酒屋・レストラン。魚市場直送の鮮魚と地元野菜を使った和食ランチ、夜はコース料理をご提供。">
-    <meta property="og:image" content="https://maam-ukiha.com/og-image.jpg"> <!-- TODO: 実際の画像パスに置き換えてください -->
-    <meta property="og:url" content="https://maam-ukiha.com/"> <!-- TODO: 実際のURLに置き換えてください -->
+    <meta property="og:image" content="https://maam-ukiha.com/images/og-image.jpg"> <!-- TODO: 実際の画像パス -->
+    <meta property="og:url" content="https://maam-ukiha.com/"> <!-- TODO: 実際のURL -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ma'am（マーム）うきは">
     <meta property="og:locale" content="ja_JP">
 
-    <!-- 基本のファビコン -->
     <link rel="icon" href="/favicon.ico" sizes="any">
-    <!-- SVGファビコン -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-    <!-- ウェブマニフェスト -->
     <link rel="manifest" href="/site.webmanifest">
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- ★★★ 外部CSSファイルの読み込み ★★★ -->
+    <link rel="stylesheet" href="/css/style.css">
 
-    <!-- SEO: 構造化データ (Restaurant) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
       "name": "ma'am",
       "alternateName": "マーム",
-      "image": "https://maam-ukiha.com/隠れ家的レストランのマーム.webp",  // TODO: 実際の画像パスに置き換えてください
-      "url": "https://maam-ukiha.com", // TODO: 実際のURLに置き換えてください
+      "image": "https://maam-ukiha.com/images/隠れ家的レストランのマーム.webp",
+      "url": "https://maam-ukiha.com",
       "telephone": "0943-76-9221",
       "address": {
         "@type": "PostalAddress",
@@ -53,591 +47,41 @@
         "longitude": 130.80006117577966
       },
       "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
-          "opens": "11:00",
-          "closes": "15:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
-          "opens": "17:00",
-          "closes": "22:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Sunday"],
-          "opens": "11:00",
-          "closes": "15:00",
-          "description": "第1・第3日曜日は定休日です。詳細は店舗にご確認ください。"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Sunday"],
-          "opens": "17:00",
-          "closes": "22:00",
-          "description": "第1・第3日曜日は定休日です。詳細は店舗にご確認ください。"
-        }
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"], "opens": "11:00", "closes": "15:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"], "opens": "17:00", "closes": "22:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "11:00", "closes": "15:00", "description": "第1・第3日曜日は定休日です。詳細は店舗にご確認ください。" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "17:00", "closes": "22:00", "description": "第1・第3日曜日は定休日です。詳細は店舗にご確認ください。" }
       ],
-      "menu": "https://maam-ukiha.com/#menu", // TODO: 実際のURLに置き換えてください
+      "menu": "https://maam-ukiha.com/#menu",
       "servesCuisine": ["日本料理", "居酒屋", "季節料理"],
       "priceRange": "¥¥",
       "paymentAccepted": "現金, クレジットカード, 電子マネー",
       "acceptsReservations": "True",
       "potentialAction": {
         "@type": "ReserveAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://maam-ukiha.com/#reservation", // TODO: 実際のURLに置き換えてください
-          "inLanguage": "ja",
-          "actionPlatform": [
-            "http://schema.org/DesktopWebPlatform",
-            "http://schema.org/IOSPlatform",
-            "http://schema.org/AndroidPlatform"
-          ]
-        },
-        "result": {
-          "@type": "Reservation",
-          "name": "予約する"
-        }
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://maam-ukiha.com/#reservation", "inLanguage": "ja", "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/IOSPlatform", "http://schema.org/AndroidPlatform"] },
+        "result": { "@type": "Reservation", "name": "予約する" }
       }
     }
     </script>
-
-    <!-- SEO: 構造化データ (FAQPage) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "駐車場はありますか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "はい、当店には数台分の駐車スペースをご用意しております。満車の場合や詳細はお気軽にお問い合わせください。（店舗情報セクションにも記載あり：駐車場：あり（詳細はお問い合わせください））"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "予約は必要ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "ランチタイムは予約なしでもご利用いただけますが、週末や祝日は混雑することがあるため、ご予約をおすすめしています。夜のコース料理は完全予約制となりますので、お電話または予約フォームからご連絡ください。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "アレルギー対応はできますか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "はい、アレルギーや食材のご要望には可能な限り対応いたします。ご予約時またはご来店時にスタッフにお申し付けください。特に甲殻類や特定の魚種など、海鮮アレルギーについては事前にお知らせいただけると幸いです。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "子連れでも大丈夫ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "はい、お子様連れのお客様も歓迎しております。お子様用の椅子もご用意できる場合がございますので、ご予約時にお申し付けください。夜間は静かな雰囲気を好まれるお客様も多いため、小さなお子様連れの場合はランチタイムのご利用をおすすめする場合もございます。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "道の駅うきはからのアクセスはどうですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "道の駅うきはから当店までは、お車で約5分です。うきは観光の拠点からもアクセスしやすい立地にございます。"
-          }
-        }
+        { "@type": "Question", "name": "駐車場はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、当店には数台分の駐車スペースをご用意しております。満車の場合や詳細はお気軽にお問い合わせください。（店舗情報セクションにも記載あり：駐車場：あり（詳細はお問い合わせください））" } },
+        { "@type": "Question", "name": "予約は必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "ランチタイムは予約なしでもご利用いただけますが、週末や祝日は混雑することがあるため、ご予約をおすすめしています。夜のコース料理は完全予約制となりますので、お電話または予約フォームからご連絡ください。" } },
+        { "@type": "Question", "name": "アレルギー対応はできますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、アレルギーや食材のご要望には可能な限り対応いたします。ご予約時またはご来店時にスタッフにお申し付けください。特に甲殻類や特定の魚種など、海鮮アレルギーについては事前にお知らせいただけると幸いです。" } },
+        { "@type": "Question", "name": "子連れでも大丈夫ですか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、お子様連れのお客様も歓迎しております。お子様用の椅子もご用意できる場合がございますので、ご予約時にお申し付けください。夜間は静かな雰囲気を好まれるお客様も多いため、小さなお子様連れの場合はランチタイムのご利用をおすすめする場合もございます。" } },
+        { "@type": "Question", "name": "道の駅うきはからのアクセスはどうですか？", "acceptedAnswer": { "@type": "Answer", "text": "道の駅うきはから当店までは、お車で約5分です。うきは観光の拠点からもアクセスしやすい立地にございます。" } }
       ]
     }
     </script>
-
-    <style>
-      /* --- 基本スタイル --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; overflow-x: hidden; }
-        img { max-width: 100%; height: auto; display: block; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; }
-
-        /* --- 最新ブログ記事セクション --- */
-        .blog-grid {
-            display: grid;
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .blog-card {
-            background-color: #fff; /* カードの背景色 */
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex; /* カード全体をフレックスコンテナに */
-            flex-direction: column; /* 子要素を縦に並べる */
-        }
-        .section-dark .blog-card { /* ダークテーマの場合 */
-            background-color: #2a2a2a;
-            box-shadow: 0 8px 25px rgba(255,255,255,0.05);
-        }
-
-        .blog-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-        }
-        .section-dark .blog-card:hover {
-            box-shadow: 0 12px 30px rgba(255,255,255,0.1);
-        }
-
-        .blog-card-link {
-            text-decoration: none;
-            color: inherit; /* 親要素の色を継承 */
-            display: flex; /* リンク自体もフレックスコンテナに */
-            flex-direction: column;
-            height: 100%; /* カードの高さいっぱいに広がるように */
-        }
-
-        .blog-card-image-wrapper {
-            width: 100%;
-            height: 200px; /* 画像の高さを固定 */
-            overflow: hidden;
-        }
-
-        .blog-card-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* アスペクト比を保ちつつコンテナを埋める */
-            transition: transform 0.4s ease;
-        }
-
-        .blog-card:hover .blog-card-image {
-            transform: scale(1.05);
-        }
-
-        .blog-card-content {
-            padding: 20px;
-            flex-grow: 1; /* 残りのスペースを埋める */
-            display: flex;
-            flex-direction: column;
-        }
-        .section-dark .blog-card-content {
-            color: #f0f0f0;
-        }
-
-
-        .blog-card-title {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            /* 2行までに制限して、はみ出たら ... を表示する (オプション) */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            min-height: calc(1.3rem * 1.4 * 2); /* 2行分の高さを確保 */
-        }
-        .section-dark .blog-card-title {
-            color: #fff;
-        }
-
-
-        .blog-card-date {
-            font-size: 0.85rem;
-            color: #777;
-            margin-bottom: 15px;
-        }
-        .section-dark .blog-card-date {
-            color: #aaa;
-        }
-
-        .blog-card-excerpt {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            flex-grow: 1; /* 続きを読むボタンを一番下に配置するため */
-            /* 3-4行までに制限して、はみ出たら ... を表示する (オプション) */
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* 表示したい行数 */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .section-dark .blog-card-excerpt {
-            color: #ccc;
-        }
-
-        .blog-card-readmore {
-            display: inline-block;
-            font-weight: bold;
-            color: #e67e22;
-            text-decoration: none;
-            margin-top: auto; /* コンテンツの下部に配置 */
-            align-self: flex-start; /* 左寄せ */
-            padding: 5px 0;
-            position: relative;
-        }
-        .blog-card-readmore::after {
-            content: '→';
-            margin-left: 5px;
-            transition: margin-left 0.2s ease;
-        }
-        .blog-card:hover .blog-card-readmore::after {
-            margin-left: 10px;
-        }
-
-        .blog-footer {
-            text-align: center;
-            margin-top: 40px; /* グリッドとの間隔 */
-        }
-
-        /* レスポンシブ: ブロググリッド */
-        @media (min-width: 992px) { /* PC */
-            .blog-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        @media (min-width: 769px) and (max-width: 991px) { /* タブレット */
-            .blog-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 768px) { /* スマホ */
-            .blog-grid {
-                grid-template-columns: 1fr;
-            }
-            .blog-card-title {
-                font-size: 1.2rem;
-                min-height: calc(1.2rem * 1.4 * 2);
-            }
-            .section.blog { /* スマホでのセクション上下パディング調整 */
-                padding: 60px 0;
-            }
-        }
-
-       /* 下線スタイル */
-        .sumi-underline { background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.25) 75%); display: inline; padding: 0 2px; }
-        .section-dark .sumi-underline { background: linear-gradient(transparent 75%, rgba(230, 126, 34, 0.4) 75%); }
-
-      /* --- ヘッダー --- */
-        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: background-color 0.3s ease; padding: 15px 0; }
-        header.scrolled { background-color: rgba(0, 0, 0, 0.8); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: 700; color: #fff; text-decoration: none; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; }
-        .logo:hover { transform: scale(1.05); }
-        .nav-list { display: flex; list-style: none; gap: 25px; }
-        .nav-list a { text-decoration: none; color: #fff; font-weight: 500; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); position: relative; padding-bottom: 5px; transition: color 0.3s; }
-        .nav-list a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #e67e22; transition: width 0.3s ease; }
-        .nav-list a:hover { color: #e67e22; }
-        .nav-list a:hover::after { width: 100%; }
-        .hamburger { display: none; cursor: pointer; width: 30px; height: 25px; position: relative; z-index: 1001; }
-        .hamburger span { display: block; position: absolute; width: 100%; height: 3px; background-color: #fff; border-radius: 3px; transition: all 0.3s ease; }
-        .hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); } .hamburger span:nth-child(3) { bottom: 0; }
-        .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
-
-      /* --- ヒーローセクション --- */
-        .hero {
-            height: 100vh;
-            background-image: url('料理人ゆうちゃんの腕前.webp');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); z-index: 1; }
-        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); z-index: 2; }
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            color: white;
-            max-width: 800px;
-            padding: 0 20px; /* 左右のパディングは維持 */
-            text-align: center;
-        }
-        .hero-title { font-family: 'Noto Serif JP', serif; font-size: 4rem; margin-bottom: 20px; letter-spacing: 3px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; animation: fadeInUp 1s forwards 0.5s; }
-        .hero-subtitle { font-size: 1.8rem; margin-bottom: 20px; font-weight: 300; opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards 0.8s; }
-        .hero-description { font-size: 1.2rem; margin-bottom: 30px; line-height: 1.8; opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards 1.1s; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .scroll-down {
-            position: absolute;
-            bottom: 10px; /* ボタンと重ならないように調整 */
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
-        .scroll-down svg { width: 30px; height: 30px; fill: #fff; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-15px) translateX(-50%); } 60% { transform: translateY(-7px) translateX(-50%); } }
-
-      /* --- ボタン --- */
-        .button { display: inline-block; padding: 15px 40px; background-color: #e67e22; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; position: relative; overflow: hidden; z-index: 1; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); transform: translateY(20px); opacity: 0; animation: fadeInUp 1s forwards 1.4s; }
-        .button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: left 0.7s ease; z-index: -1; }
-        .button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(230, 126, 34, 0.6); }
-        .button:hover::before { left: 100%; }
-        .button-secondary { background-color: transparent; border: 2px solid #fff; margin-left: 15px; box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2); }
-        .button-secondary:hover { background-color: #fff; color: #333; box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4); }
-
-      /* --- セクション共通 --- */
-        .section { padding: 100px 0; position: relative; overflow: hidden; }
-        .section::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
-        .section-dark { background-color: #1a1a1a; color: #fff; }
-        .section-light { background-color: #fff; color: #333; }
-        .section-gray { background-color: #f8f8f8; }
-        .section-title-container { text-align: center; margin-bottom: 60px; position: relative; }
-        .section-subtitle { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; color: #e67e22; margin-bottom: 10px; letter-spacing: 2px; }
-        .section-title { font-family: 'Noto Serif JP', serif; font-size: 2.8rem; margin-bottom: 25px; position: relative; display: inline-block; }
-        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background-color: #e67e22; margin: 15px auto; }
-        .section-description { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
-        .section-dark .section-title, .section-dark .section-description { color: #fff; }
-        .section-light .section-title, .section-light .section-description { color: #333; }
-
-      /* --- 漢字装飾 --- */
-        .kanji-decoration { position: absolute; font-family: 'Noto Serif JP', serif; font-size: 12rem; color: rgba(0, 0, 0, 0.03); pointer-events: none; z-index: 0; }
-        .section-dark .kanji-decoration { color: rgba(255, 255, 255, 0.03); }
-        .kanji-top-right { top: -50px; right: 50px; } .kanji-bottom-left { bottom: -50px; left: 50px; }
-
-      /* --- コンセプトセクション --- */
-        .concept-content { display: flex; align-items: center; gap: 60px; }
-        .concept-text { flex: 1; z-index: 2; }
-        .concept-text p { margin-bottom: 20px; font-size: 1.1rem; line-height: 2; }
-        .concept-image { flex: 1; position: relative; z-index: 2; }
-        .image-frame { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: perspective(1000px) rotateY(-10deg); transition: transform 0.5s ease; }
-        .image-frame:hover { transform: perspective(1000px) rotateY(0deg); }
-        .image-frame img { width: 100%; height: 400px; object-fit: cover; transition: transform 0.5s ease; }
-        .image-frame:hover img { transform: scale(1.05); }
-
-      /* --- メニューセクション --- */
-        .menu-grid { display: grid; gap: 30px; }
-        .menu-item { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease; }
-        .section-dark .menu-item { background-color: #2a2a2a; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
-        .menu-item:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-        .section-dark .menu-item:hover { box-shadow: 0 15px 40px rgba(255,255,255,0.1); }
-        .menu-item-image { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s ease; }
-        .menu-item:hover .menu-item-image { transform: scale(1.1); }
-        .menu-item-content { padding: 25px; }
-        .menu-item-title { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; margin-bottom: 10px; position: relative; padding-bottom: 10px; }
-        .section-dark .menu-item-title { color: #fff; }
-        .menu-item-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #e67e22; }
-        .menu-item-price { font-weight: bold; font-size: 1.2rem; color: #e67e22; margin-bottom: 15px; }
-        .section-dark .menu-item-description { color: #ccc; }
-        .lunch-examples-container { margin-top: 80px; text-align: center; }
-        .lunch-examples-title { font-family: 'Noto Serif JP', serif; font-size: 2rem; margin-bottom: 40px; position: relative; display: inline-block; }
-        .section-dark .lunch-examples-title { color: #fff; }
-        .lunch-examples-title::after { content: ''; display: block; width: 50px; height: 3px; background-color: #e67e22; margin: 10px auto 0; }
-        .lunch-examples-grid { display: grid; gap: 25px; }
-        .lunch-example-item { border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .section-dark .lunch-example-item { background-color: #2a2a2a; box-shadow: 0 8px 25px rgba(255,255,255,0.05); }
-        .lunch-example-item:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
-        .section-dark .lunch-example-item:hover { box-shadow: 0 12px 30px rgba(255,255,255,0.1); }
-        .lunch-example-image { width: 100%; height: 220px; object-fit: cover; }
-        .lunch-example-caption { padding: 20px; font-size: 1rem; line-height: 1.6; font-weight: 500; }
-        .section-dark .lunch-example-caption { color: #f0f0f0; }
-        
-      /* --- ギャラリーセクション --- */
-        .gallery-grid { display: grid; grid-auto-rows: 200px; gap: 15px; }
-        .gallery-item { overflow: hidden; border-radius: 10px; position: relative; cursor: pointer; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-item::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7)); opacity: 0; transition: opacity 0.3s ease; }
-        .gallery-item:hover::after { opacity: 1; }
-        @media (min-width: 769px) { /* PC Gallery Layout */
-            .gallery-grid { grid-template-columns: repeat(12, 1fr); } 
-            .gallery-item:nth-child(1) { grid-column: span 6; grid-row: span 2; }
-            .gallery-item:nth-child(2) { grid-column: span 3; grid-row: span 1; }
-            .gallery-item:nth-child(3) { grid-column: span 3; grid-row: span 1; }
-            .gallery-item:nth-child(4) { grid-column: span 3; grid-row: span 1; }
-            .gallery-item:nth-child(5) { grid-column: span 3; grid-row: span 1; }
-        }
-
-      /* --- 店舗情報セクション --- */
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .info-box { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease; display: flex; align-items: flex-start; gap: 20px; }
-        .info-box:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .info-icon { width: 50px; height: 50px; background-color: #e67e22; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
-        .info-text-content { flex: 1; text-align: left; } 
-        .info-title { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; margin-bottom: 15px; position: relative; padding-bottom: 10px; text-align: left; } /* text-align: left追加 */
-        .info-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #e67e22; /* margin 제거 */ }
-        .info-list { list-style: none; padding: 0; margin: 0; }
-        .info-list li { margin-bottom: 10px; padding-left: 25px; position: relative; line-height: 1.6; font-size: 0.95rem;}
-        .info-list li::before { content: '◆'; position: absolute; left: 0; color: #e67e22; font-size: 0.7rem; top: 4px; }
-        .map-container { margin-top: 60px; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; height: 400px; }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-        .access-info-container { margin-top: 40px; }
-
-      /* --- 予約セクション --- */
-        .reservation-form-container { max-width: 700px; margin: 0 auto; background-color: #fff; padding: 40px 30px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column; /* Default: SP */
-            align-items: flex-start;
-            gap: 5px;
-         }
-        .form-group.textarea-group { align-items: flex-start; }
-
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 5px; 
-         }
-        .form-group.textarea-group label { width: 100%; }
-
-        .form-control {
-             width: 100%; 
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-         }
-        .form-control::placeholder { color: #aaa; opacity: 1; }
-        .form-control:focus { border-color: #e67e22; box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2); outline: none; }
-       
-        /* ラベル用マーク */
-       .label-mark { display: inline-block; font-size: 0.8rem; padding: 2px 6px; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
-        .label-required { background-color: #e67e22; color: #fff; }
-        .label-optional { background-color: #ccc; color: #333; }
-       
-        /* ハニーポットは非表示 */
-        .honeypot { position: absolute; left: -5000px; opacity: 0; pointer-events: none; }
-
-        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #e67e22; color: #fff; border: none; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
-        .submit-btn:hover { background-color: #d35400; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); }
-        .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
-        
-        #form-message { padding: 15px; margin-top: 20px; border-radius: 5px; text-align: center; font-weight: bold; display: none; }
-         #form-message.success { background-color: #e0f2e9; border: 1px solid #5cb85c; color: #3c763d; }
-          #form-message.error { background-color: #f2dede; border: 1px solid #d9534f; color: #a94442; }
-
-        .tel-reservation { text-align: center; margin-top: 40px; }
-        .tel-reservation p { margin-bottom: 10px; font-weight: bold; }
-        .tel-number { display: inline-block; font-size: 1.5rem; color: #e67e22; font-weight: bold; margin: 0 auto; }
-
-      /* --- FAQセクション --- */
-        .faq-container { max-width: 800px; margin: 40px auto 0; }
-        .faq-item { border-bottom: 1px solid #eee; }
-        .section-light .faq-item { border-bottom-color: #ddd; } /* Light theme adjustment */
-        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; }
-        .faq-question h3 { margin: 0; font-size: 1.2rem; font-family: 'Noto Serif JP', serif; font-weight: 700; }
-        .faq-icon { font-size: 1.5rem; transition: transform 0.3s ease; color: #e67e22; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Smoother transition */ }
-        .faq-answer p { margin: 0 0 20px 0; padding: 0 10px 0 0; /* Add some right padding for content */ line-height: 1.7; }
-        .faq-item.active .faq-icon { transform: rotate(45deg); }
-        .faq-item.active .faq-answer { max-height: 500px; /* Adjust if content is longer */ padding-top: 10px; padding-bottom: 10px; }
-
-      /* --- フッター --- */
-        footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 60px; }
-        .footer-section h3 { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; }
-        .footer-section h3::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 40px; height: 2px; background-color: #e67e22; }
-        .footer-section p { margin-bottom: 15px; opacity: 0.7; line-height: 1.8; }
-        .footer-info-list { list-style: none; padding: 0; margin: 0; }
-        .footer-info-list li { margin-bottom: 15px; display: flex; align-items: flex-start; }
-        .footer-info-list li svg { width: 20px; height: 20px; fill: #e67e22; margin-right: 15px; flex-shrink: 0; margin-top: 5px; }
-        .social-links { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; transition: all 0.3s ease; }
-        .social-icon svg { width: 20px; height: 20px; fill: #fff; }
-        .social-icon:hover { background-color: #e67e22; transform: translateY(-3px); }
-        .footer-divider { height: 1px; background-color: rgba(255, 255, 255, 0.1); margin-bottom: 30px; }
-        .copyright { text-align: center; font-size: 0.9rem; opacity: 0.5; }
-        
-      /* --- レスポンシブ対応 --- */
-        @media (min-width: 769px) { /* PC & Tablet Landscape */
-            .menu-grid, .lunch-examples-grid { grid-template-columns: repeat(2, 1fr); }
-             .info-grid { grid-template-columns: repeat(3, 1fr); } 
-            /* 店舗情報 PCレイアウト調整 */
-            .info-box { flex-direction: row; align-items: flex-start; text-align: left;}
-            .info-icon { margin-bottom: 0; }
-            .info-text-content { text-align: left; }
-            .info-title { text-align: left; }
-            .info-title::after { margin-left: 0; margin-right: 0; }
-            /* フォーム PCレイアウト調整 */
-            .form-group { flex-direction: row; align-items: center; gap: 15px; }
-            .form-group label { flex-basis: 160px; text-align: left; padding-right: 10px; margin-bottom: 0; }
-            .form-control { width: auto; flex-grow: 1; }
-            .form-group.textarea-group { align-items: flex-start; }
-            .form-group.textarea-group label { padding-top: 10px; width: auto; margin-bottom: 0; }
-        }
-        
-        @media (max-width: 1023px) and (min-width: 769px) { /* Tablet Landscape */
-             .hero-title { font-size: 3.5rem; }
-             .section { padding: 80px 0; }
-             .menu-grid, .lunch-examples-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-             .gallery-grid { grid-auto-rows: 220px; }
-        }
-        
-        @media (max-width: 768px) { /* Tablet Portrait & SP */
-            .nav-list { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background-color: rgba(20, 20, 20, 0.98); padding: 15px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.2); z-index: 999; }
-            .nav-list.active { display: flex; }
-            .nav-list li { width: 100%; text-align: center; }
-            .nav-list a { padding: 12px 20px; display: block; width: 100%; font-size: 1.1rem; }
-            .nav-list a::after { left: 50%; transform: translateX(-50%); }
-            .nav-list a:hover::after { width: 30%; }
-            .hamburger { display: block; }
-            
-            .hero-content {
-                padding-top: 90px;
-                padding-bottom: 70px; /* スクロールアローとの間隔調整 */
-            }
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.4rem; }
-            .button { padding: 12px 30px; }
-            
-            .section-title { font-size: 2.2rem; }
-            .lunch-examples-title { font-size: 1.8rem; }
-            .concept, .menu, .gallery, .info, .reservation, .faq { padding: 80px 0; } /* FAQセクションにも適用 */
-
-            .concept-content { flex-direction: column-reverse; gap: 40px; } 
-            .image-frame { transform: perspective(1000px) rotateY(0deg); } 
-            
-            .menu-grid, .lunch-examples-grid { grid-template-columns: 1fr; } 
-            
-            .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 280px; }
-            .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
-
-            .info-box { flex-direction: column; align-items: center; text-align: center; } 
-            .info-icon { margin-bottom: 15px; }
-            .info-text-content { width: 100%; text-align: left; } 
-            .info-title { text-align: center; }
-            .info-title::after { margin-left: auto; margin-right: auto; }
-
-            .faq-question h3 { font-size: 1.1rem; }
-        }
-        
-        @media (max-width: 480px) { /* Smaller SP */
-            .hero-content {
-                padding-top: 80px;
-                padding-bottom: 60px; /* スクロールアローとの間隔調整 */
-            }
-            .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 1.2rem; }
-            .button { padding: 10px 25px; }
-            .hero-content > div { display: flex; flex-direction: column; gap: 15px; }
-            .hero-content .button { display: block; margin-left: 0; width: 80%; margin: 0 auto 10px; }
-
-            .section-title { font-size: 1.8rem; }
-            .lunch-examples-title { font-size: 1.6rem; }
-            .gallery-grid { grid-auto-rows: 250px; } 
-            .reservation-form-container { padding: 30px 20px; }
-            .info-box { padding: 25px; }
-            .info-title { font-size: 1.2rem;}
-            .info-list li { font-size: 0.9rem;}
-            .faq-question h3 { font-size: 1rem; }
-        }
-
-    </style>
 </head>
 <body>
     <header id="header">
         <div class="container header-inner">
-            <a href="#" class="logo">ma'am</a>
+            <a href="/" class="logo">ma'am</a> <!-- 自身のトップページへのリンク -->
             <nav>
                 <ul class="nav-list">
                     <li><a href="#concept">コンセプト</a></li>
@@ -645,20 +89,18 @@
                     <li><a href="#gallery">ギャラリー</a></li>
                     <li><a href="#info">店舗情報</a></li>
                     <li><a href="#reservation">ご予約</a></li>
-                    <li><a href="#faq">FAQ</a></li> <!-- SEO: FAQへのナビゲーションリンク追加 (任意) -->
-                    <li><a href="#blog">ブログ</a></li> <!-- ブログへのナビゲーションリンク -->
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="/blog/">ブログ</a></li>
                 </ul>
                 <div class="hamburger"><span></span><span></span><span></span></div>
             </nav>
         </div>
     </header>
-    
+
      <section class="hero">
         <div class="hero-content">
-            <!-- SEO: h1タグの最適化 -->
-            <h1 class="hero-title">ma'am うきは</h1>
+            <h1 class="hero-title">ma'am（マーム）うきは</h1>
             <p class="hero-subtitle">旨味が浸み込んだ季節の鮮魚と旬菜の彩り</p>
-            <!-- SEO: コンテンツの強化 (キーワード追加) -->
             <p class="hero-description"><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした<strong>福岡県うきは市の隠れ家的居酒屋・レストラン「ma'am（マーム）」</strong>。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。<strong>道の駅うきはから車で5分</strong>とアクセスも便利。<strong>うきは観光</strong>のランチにもおすすめです。</p>
             <div>
                 <a href="#reservation" class="button">ご予約はこちら</a>
@@ -669,7 +111,7 @@
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
-    
+
     <section id="concept" class="section concept section-gray">
         <div class="container">
             <span class="kanji-decoration kanji-top-right">旬</span>
@@ -679,10 +121,9 @@
                 <p class="section-description">魚市場の仲買権を持つ料理人のゆうちゃんが目利きした鮮魚と地元の旬の食材。丁寧な仕事で魅せる料理と、居心地のよい空間で、ゆったりとした時間をご提供します。うきは市で特別なランチやディナーをお探しならぜひ当店へ。</p>
             </div>
             <div class="concept-content">
-                 <div class="concept-image" data-aos="fade-up" data-aos-delay="100"> 
+                 <div class="concept-image" data-aos="fade-up" data-aos-delay="100">
                     <div class="image-frame">
-                        <!-- SEO: alt属性の最適化 -->
-                        <img src="窓からうきはの景色を楽しめる店内.webp" alt="ma'am（マーム）うきは店の明るい店内 - 窓からうきはの景色を一望">
+                        <img src="/images/窓からうきはの景色を楽しめる店内.webp" alt="ma'am（マーム）うきは店の明るい店内 - 窓からうきはの景色を一望">
                     </div>
                 </div>
                 <div class="concept-text" data-aos="fade-up" data-aos-delay="200">
@@ -694,8 +135,8 @@
             </div>
         </div>
     </section>
-    
-    <section id="menu" class="section menu section-dark"> 
+
+    <section id="menu" class="section menu section-dark">
        <div class="container">
             <span class="kanji-decoration kanji-bottom-left">味</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -705,8 +146,7 @@
             </div>
             <div class="menu-grid">
                 <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
-                    <!-- SEO: alt属性の最適化 -->
-                    <img src="魚市場から直送の旬の魚介を使った一品.webp" alt="ma'am（マーム）のランチセット - 魚市場直送の旬の魚介料理" class="menu-item-image">
+                    <img src="/images/魚市場から直送の旬の魚介を使った一品.webp" alt="ma'am（マーム）のランチセット - 魚市場直送の旬の魚介料理" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">ランチセット</h3>
                         <p class="menu-item-price">¥2,200〜</p>
@@ -714,8 +154,7 @@
                     </div>
                 </div>
                 <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
-                     <!-- SEO: alt属性の最適化 -->
-                    <img src="朝獲れ鮮魚の刺身盛り合わせ.webp" alt="ma'am（マーム）の夜のコース料理 - 朝獲れ鮮魚の豪華刺身盛り合わせ" class="menu-item-image">
+                    <img src="/images/朝獲れ鮮魚の刺身盛り合わせ.webp" alt="ma'am（マーム）の夜のコース料理 - 朝獲れ鮮魚の豪華刺身盛り合わせ" class="menu-item-image">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">夜のコース料理</h3>
                         <p class="menu-item-price">¥3,300〜</p>
@@ -726,14 +165,14 @@
             <div class="lunch-examples-container" data-aos="fade-up" data-aos-delay="300">
                 <h3 class="lunch-examples-title">ランチの料理一例</h3>
                 <div class="lunch-examples-grid">
-                    <div class="lunch-example-item"><img src="seasonal_tempura.webp" alt="うきは ランチ ma'am - 季節野菜と新鮮魚介の天ぷら" class="lunch-example-image"><p class="lunch-example-caption">旬野菜と魚介の天ぷら</p></div>
-                    <div class="lunch-example-item"><img src="職人の技が光る繊細な日本料理.webp" alt="うきは ランチ ma'am - 秘伝醤油の香味唐揚げ" class="lunch-example-image"><p class="lunch-example-caption">秘伝醤油の香味唐揚げ</p></div>
+                    <div class="lunch-example-item"><img src="/images/季節野菜と魚介の天ぷら.webp" alt="うきは ランチ ma'am - 季節野菜と新鮮魚介の天ぷら" class="lunch-example-image"><p class="lunch-example-caption">旬野菜と魚介の天ぷら</p></div>
+                    <div class="lunch-example-item"><img src="/images/職人の技が光る繊細な日本料理.webp" alt="うきは ランチ ma'am - 秘伝醤油の香味唐揚げ" class="lunch-example-image"><p class="lunch-example-caption">秘伝醤油の香味唐揚げ</p></div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section id="gallery" class="section gallery section-light"> 
+
+    <section id="gallery" class="section gallery section-light">
         <div class="container">
             <span class="kanji-decoration kanji-top-right">彩</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -742,17 +181,16 @@
                 <p class="section-description">四季折々の料理とma'am（マーム）の店内の雰囲気をご紹介します。</p>
             </div>
              <div class="gallery-grid">
-                <!-- SEO: alt属性の最適化 -->
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="隠れ家的レストランのマーム.webp" alt="うきは市 ma'am（マーム） - 隠れ家的でおしゃれなレストランの外観"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150"><img src="自家製調味料こだわりのポン酢と醤油.webp" alt="ma'am（マーム）のこだわり - 自家製調味料のポン酢と醤油"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="手作りスイーツコーナーうきは小麦のお菓子.webp" alt="ma'am（マーム）のスイーツ - うきは産小麦を使用した手作りお菓子"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250"><img src="こだわり食材販売コーナーマームの特産品.webp" alt="ma'am（マーム）店内 - こだわり食材や特産品の販売コーナー"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="笑顔が素敵な店主の由紀さん.webp" alt="ma'am（マーム）の店主 由紀さん - 笑顔でお出迎え"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="/images/隠れ家的レストランのマーム.webp" alt="うきは市 ma'am（マーム） - 隠れ家的でおしゃれなレストランの外観"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150"><img src="/images/自家製調味料こだわりのポン酢と醤油.webp" alt="ma'am（マーム）のこだわり - 自家製調味料のポン酢と醤油"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="/images/手作りスイーツコーナーうきは小麦のお菓子.webp" alt="ma'am（マーム）のスイーツ - うきは産小麦を使用した手作りお菓子"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250"><img src="/images/こだわり食材販売コーナーマームの特産品.webp" alt="ma'am（マーム）店内 - こだわり食材や特産品の販売コーナー"></div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="/images/笑顔が素敵な店主の由紀さん.webp" alt="ma'am（マーム）の店主 由紀さん - 笑顔でお出迎え"></div>
             </div>
         </div>
     </section>
-    
-    <section id="info" class="section info section-gray"> 
+
+    <section id="info" class="section info section-gray">
         <div class="container">
             <span class="kanji-decoration kanji-bottom-left">情</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -787,7 +225,7 @@
                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.262090049652!2d130.80006117577966!3d33.33200977345873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35416d84255749cd%3A0x7000d18e17d0701d!2sma'am!5e0!3m2!1sja!2sjp!4v1716357934526!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ma'am（マーム）うきは店の地図"></iframe>
             </div>
              <div class="access-info-container" data-aos="fade-up" data-aos-delay="100">
-                <div class="info-box"> 
+                <div class="info-box">
                     <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/></svg></div>
                     <div class="info-text-content">
                         <h3 class="info-title">アクセス</h3>
@@ -797,8 +235,8 @@
             </div>
         </div>
     </section>
-    
-    <section id="reservation" class="section reservation section-light"> 
+
+    <section id="reservation" class="section reservation section-light">
         <div class="container">
             <span class="kanji-decoration kanji-top-right">予</span>
             <div class="section-title-container" data-aos="fade-up">
@@ -807,11 +245,9 @@
                 <p class="section-description">ご予約はお電話または以下のフォームより承っております。うきはでのランチ、ディナーのご予約はお気軽に。夜のコース料理は完全予約制となりますので、お早めにご連絡ください。</p>
             </div>
             <div class="reservation-form-container" data-aos="fade-up" data-aos-delay="200">
-               
                 <form id="reservation-form" name="reservation" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="reservation" />
                      <p class="honeypot"><label>スパムでない場合は空欄のままにしてください: <input name="bot-field" /></label></p>
-
                     <div class="form-group">
                         <label for="name"><span class="label-mark label-required">必須</span>お名前</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="例：山田 太郎" required autocomplete="name">
@@ -851,154 +287,114 @@
                             <option value="dinner-basic">夜のコース料理</option>
                         </select>
                     </div>
-                    <div class="form-group textarea-group"> 
+                    <div class="form-group textarea-group">
                         <label for="message"><span class="label-mark label-optional">任意</span>ご要望</label>
                         <textarea id="message" name="message" class="form-control" rows="4" placeholder="アレルギー情報や、記念日でのご利用、7名様以上の場合の人数などをご記入ください。"></textarea>
                     </div>
                     <button type="submit" id="submit-button" class="submit-btn">予約内容を送信する</button>
                 </form>
-                <div id="form-message"></div> 
+                <div id="form-message"></div>
                 <div class="tel-reservation"><p>お電話でのご予約・お問い合わせ</p><a href="tel:0943-76-9221" class="tel-number">TEL: 0943-76-9221</a></div>
             </div>
         </div>
     </section>
 
-    <!-- SEO: FAQセクションの追加 -->
-    <section id="faq" class="section faq section-gray"> <!-- 背景色を他セクションと合わせるために .section-gray を追加 -->
+    <section id="faq" class="section faq section-gray">
         <div class="container">
             <div class="section-title-container" data-aos="fade-up">
                 <p class="section-subtitle">FAQ</p>
                 <h2 class="section-title">よくあるご質問</h2>
                 <p class="section-description">ma'am（マーム）へのお客様からよくいただくご質問をまとめました。その他ご不明点がございましたら、お気軽にお問い合わせください。</p>
             </div>
-            
             <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>駐車場はありますか？</h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>はい、当店には数台分の駐車スペースをご用意しております。満車の場合や詳細はお気軽にお問い合わせください。（店舗情報セクションにも記載あり：駐車場：あり（詳細はお問い合わせください））</p>
-                    </div>
+                    <div class="faq-question"><h3>駐車場はありますか？</h3><span class="faq-icon">+</span></div>
+                    <div class="faq-answer"><p>はい、当店には数台分の駐車スペースをご用意しております。満車の場合や詳細はお気軽にお問い合わせください。（店舗情報セクションにも記載あり：駐車場：あり（詳細はお問い合わせください））</p></div>
                 </div>
-                
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>予約は必要ですか？</h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>ランチタイムは予約なしでもご利用いただけますが、週末や祝日は混雑することがあるため、ご予約をおすすめしています。夜のコース料理は完全予約制となりますので、お電話または予約フォームからご連絡ください。</p>
-                    </div>
+                    <div class="faq-question"><h3>予約は必要ですか？</h3><span class="faq-icon">+</span></div>
+                    <div class="faq-answer"><p>ランチタイムは予約なしでもご利用いただけますが、週末や祝日は混雑することがあるため、ご予約をおすすめしています。夜のコース料理は完全予約制となりますので、お電話または予約フォームからご連絡ください。</p></div>
                 </div>
-
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>アレルギー対応はできますか？</h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>はい、アレルギーや食材のご要望には可能な限り対応いたします。ご予約時またはご来店時にスタッフにお申し付けください。特に甲殻類や特定の魚種など、海鮮アレルギーについては事前にお知らせいただけると幸いです。</p>
-                    </div>
+                    <div class="faq-question"><h3>アレルギー対応はできますか？</h3><span class="faq-icon">+</span></div>
+                    <div class="faq-answer"><p>はい、アレルギーや食材のご要望には可能な限り対応いたします。ご予約時またはご来店時にスタッフにお申し付けください。特に甲殻類や特定の魚種など、海鮮アレルギーについては事前にお知らせいただけると幸いです。</p></div>
                 </div>
-
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>子連れでも大丈夫ですか？</h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>はい、お子様連れのお客様も歓迎しております。お子様用の椅子もご用意できる場合がございますので、ご予約時にお申し付けください。夜間は静かな雰囲気を好まれるお客様も多いため、小さなお子様連れの場合はランチタイムのご利用をおすすめする場合もございます。</p>
-                    </div>
+                    <div class="faq-question"><h3>子連れでも大丈夫ですか？</h3><span class="faq-icon">+</span></div>
+                    <div class="faq-answer"><p>はい、お子様連れのお客様も歓迎しております。お子様用の椅子もご用意できる場合がございますので、ご予約時にお申し付けください。夜間は静かな雰囲気を好まれるお客様も多いため、小さなお子様連れの場合はランチタイムのご利用をおすすめする場合もございます。</p></div>
                 </div>
                  <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>道の駅うきはからのアクセスはどうですか？</h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>道の駅うきはから当店までは、お車で約5分です。うきは観光の拠点からもアクセスしやすい立地にございます。</p>
-                    </div>
+                    <div class="faq-question"><h3>道の駅うきはからのアクセスはどうですか？</h3><span class="faq-icon">+</span></div>
+                    <div class="faq-answer"><p>道の駅うきはから当店までは、お車で約5分です。うきは観光の拠点からもアクセスしやすい立地にございます。</p></div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- --- 最新ブログ記事セクション --- -->
-<section id="blog" class="section blog section-light"> <!-- section-light や section-gray はお好みで -->
-    <div class="container">
-        <span class="kanji-decoration kanji-bottom-left">記</span> <!-- 必要に応じて漢字装飾 -->
-        <div class="section-title-container" data-aos="fade-up">
-            <p class="section-subtitle">BLOG</p>
-            <h2 class="section-title">ma'amブログ - うきは市の旬な情報をお届け</h2>
-            <p class="section-description">季節の食材の話、うきは市のイベント情報、お店の日常などを発信しています。</p>
+
+    <section id="blog" class="section blog section-light">
+        <div class="container">
+            <span class="kanji-decoration kanji-bottom-left">記</span>
+            <div class="section-title-container" data-aos="fade-up">
+                <p class="section-subtitle">BLOG</p>
+                <h2 class="section-title">ma'amブログ - うきは市の旬な情報をお届け</h2>
+                <p class="section-description">季節の食材の話、うきは市のイベント情報、お店の日常などを発信しています。</p>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                    <a href="/blog/ukiha-sightseeing-guide.html" class="blog-card-link">
+                        <div class="blog-card-image-wrapper">
+                            <img src="/images/blog-sample-image-1.webp" alt="うきは観光ガイド - 道の駅周辺のおすすめスポット" class="blog-card-image">
+                        </div>
+                        <div class="blog-card-content">
+                            <h3 class="blog-card-title">うきは観光ガイド！道の駅うきはから巡るおすすめスポットと絶品ランチ</h3>
+                            <p class="blog-card-date">2024年5月25日</p>
+                            <p class="blog-card-excerpt">福岡県うきは市は自然豊かで魅力的な観光地。この記事では、道の駅うきはを拠点とした観光ルートと、その途中で立ち寄りたいma'amのランチをご紹介します...</p>
+                            <span class="blog-card-readmore">続きを読む</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                    <a href="/blog/stylish-lunch-spots-in-ukiha.html" class="blog-card-link">
+                        <div class="blog-card-image-wrapper">
+                            <img src="/images/blog-sample-image-2.webp" alt="うきは市のおしゃれなランチスポット特集" class="blog-card-image">
+                        </div>
+                        <div class="blog-card-content">
+                            <h3 class="blog-card-title">うきは市で探す、ちょっと贅沢でおしゃれなランチスポット特集</h3>
+                            <p class="blog-card-date">2024年5月20日</p>
+                            <p class="blog-card-excerpt">特別な日のランチや、自分へのご褒美に。うきは市で見つけた、こだわりの食材と素敵な空間が楽しめるおしゃれなランチスポットをピックアップしました...</p>
+                            <span class="blog-card-readmore">続きを読む</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                    <a href="/blog/maam-seasonal-ingredients.html" class="blog-card-link">
+                        <div class="blog-card-image-wrapper">
+                            <img src="/images/blog-sample-image-3.webp" alt="ma'amで味わう旬の食材 - 初夏の味覚" class="blog-card-image">
+                        </div>
+                        <div class="blog-card-content">
+                            <h3 class="blog-card-title">ma'am（マーム）で味わう旬の食材：初夏を彩るうきはの恵み</h3>
+                            <p class="blog-card-date">2024年5月15日</p>
+                            <p class="blog-card-excerpt">ma'amでは、その時期最も美味しい旬の食材を活かした料理をご提供しています。今回は初夏に味わえる、うきはならではの食材と料理のこだわりをご紹介...</p>
+                            <span class="blog-card-readmore">続きを読む</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+            <div class="blog-footer" data-aos="fade-up">
+                <a href="/blog/" class="button">ブログ一覧を見る</a>
+            </div>
         </div>
-
-        <div class="blog-grid">
-            <!-- サンプル記事カード 1 -->
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-                <a href="/blog/ukiha-sightseeing-guide/" class="blog-card-link"> <!-- TODO: 実際の記事URLに置き換え -->
-                    <div class="blog-card-image-wrapper">
-                        <img src="blog-sample-image-1.webp" alt="うきは観光ガイド - 道の駅周辺のおすすめスポット" class="blog-card-image"> <!-- TODO: 実際の画像パスに置き換え -->
-                    </div>
-                    <div class="blog-card-content">
-                        <h3 class="blog-card-title">うきは観光ガイド！道の駅うきはから巡るおすすめスポットと絶品ランチ</h3>
-                        <p class="blog-card-date">2024年5月25日</p>
-                        <p class="blog-card-excerpt">福岡県うきは市は自然豊かで魅力的な観光地。この記事では、道の駅うきはを拠点とした観光ルートと、その途中で立ち寄りたいma'amのランチをご紹介します...</p>
-                        <span class="blog-card-readmore">続きを読む</span>
-                    </div>
-                </a>
-            </article>
-
-            <!-- サンプル記事カード 2 -->
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-                <a href="/blog/stylish-lunch-spots-in-ukiha/" class="blog-card-link"> <!-- TODO: 実際の記事URLに置き換え -->
-                    <div class="blog-card-image-wrapper">
-                        <img src="blog-sample-image-2.webp" alt="うきは市のおしゃれなランチスポット特集" class="blog-card-image"> <!-- TODO: 実際の画像パスに置き換え -->
-                    </div>
-                    <div class="blog-card-content">
-                        <h3 class="blog-card-title">うきは市で探す、ちょっと贅沢でおしゃれなランチスポット特集</h3>
-                        <p class="blog-card-date">2024年5月20日</p>
-                        <p class="blog-card-excerpt">特別な日のランチや、自分へのご褒美に。うきは市で見つけた、こだわりの食材と素敵な空間が楽しめるおしゃれなランチスポットをピックアップしました...</p>
-                        <span class="blog-card-readmore">続きを読む</span>
-                    </div>
-                </a>
-            </article>
-
-            <!-- サンプル記事カード 3 -->
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
-                <a href="/blog/maam-seasonal-ingredients/" class="blog-card-link"> <!-- TODO: 実際の記事URLに置き換え -->
-                    <div class="blog-card-image-wrapper">
-                        <img src="blog-sample-image-3.webp" alt="ma'amで味わう旬の食材 - 初夏の味覚" class="blog-card-image"> <!-- TODO: 実際の画像パスに置き換え -->
-                    </div>
-                    <div class="blog-card-content">
-                        <h3 class="blog-card-title">ma'am（マーム）で味わう旬の食材：初夏を彩るうきはの恵み</h3>
-                        <p class="blog-card-date">2024年5月15日</p>
-                        <p class="blog-card-excerpt">ma'amでは、その時期最も美味しい旬の食材を活かした料理をご提供しています。今回は初夏に味わえる、うきはならではの食材と料理のこだわりをご紹介...</p>
-                        <span class="blog-card-readmore">続きを読む</span>
-                    </div>
-                </a>
-            </article>
-        </div>
-
-        <div class="blog-footer" data-aos="fade-up">
-            <a href="/blog/" class="button">ブログ一覧を見る</a> <!-- TODO: ブログ一覧ページのURLに置き換え -->
-        </div>
-    </div>
-</section>
+    </section>
 
      <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <!-- SEO: フッター情報の充実 -->
                     <h3>ma'am（マーム）うきは</h3>
                      <p><span class="sumi-underline">「その日のいちばん旬のものを、いちばん美味しいかたちでお届け」</span>をコンセプトにした<strong>福岡県うきは市の居酒屋・レストラン</strong>です。四季折々の旬の食材と厳選された日本酒で、特別なひとときをお過ごしください。<strong>うきはでのランチやカフェ利用</strong>にも人気です。</p>
-                    <div class="social-links">  
+                    <div class="social-links">
                         <a href="https://www.instagram.com/maamgram_/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
                         <a href="#" class="social-icon" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/></svg></a>
-                         <!-- TODO: Twitterリンクが # なので、実際のURLに置き換えるか、不要であれば削除してください -->
                     </div>
                 </div>
                 <div class="footer-section">
@@ -1013,7 +409,7 @@
                     <ul class="footer-info-list">
                         <li><svg viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/></svg><span>〒839-1403<br>福岡県うきは市浮羽町東隈上４５１−９</span></li>
                         <li><svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg><span>TEL: 0943-76-9221</span></li>
-                        <li><svg viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg><span>Email: info@example.com</span></li> <!-- TODO: 実際のEmailアドレスに置き換えるか削除 -->
+                        <li><svg viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg><span>Email: info@example.com</span></li>
                     </ul>
                 </div>
             </div>
@@ -1021,21 +417,25 @@
             <div class="copyright"><p>© <span id="copyright-year"></span> ma'am（マーム） All Rights Reserved.</p></div>
         </div>
     </footer>
-    
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
      <script>
         AOS.init({ duration: 800, easing: 'ease', once: true, offset: 150 });
-        
+
         const header = document.getElementById('header');
-        const heroSection = document.querySelector('.hero');
+        const heroSection = document.querySelector('.hero'); // トップページにのみ存在
         const kanjiDecorations = document.querySelectorAll('.kanji-decoration');
         const hamburger = document.querySelector('.hamburger');
         const navList = document.querySelector('.nav-list');
-       
+
         function handleScroll() {
             const scrollY = window.scrollY;
-            if (header) { header.classList.toggle('scrolled', scrollY > 50); }
-            if (heroSection) { heroSection.style.backgroundPositionY = scrollY * 0.3 + 'px'; }
+            if (header && !document.body.classList.contains('blog-page') && !document.body.classList.contains('article-page')) { // トップページのみスクロールでヘッダー背景変更
+                 header.classList.toggle('scrolled', scrollY > 50);
+            }
+            if (heroSection) { // トップページのみ
+                heroSection.style.backgroundPositionY = scrollY * 0.3 + 'px';
+            }
             kanjiDecorations.forEach(kanji => {
                 const parent = kanji.closest('.section');
                 if (parent) {
@@ -1049,8 +449,7 @@
             });
         }
         window.addEventListener('scroll', handleScroll);
-        
-        // --- ハンバーガーメニュー ---
+
         if (hamburger && navList) {
             hamburger.addEventListener('click', () => {
                 hamburger.classList.toggle('active');
@@ -1058,81 +457,67 @@
                 document.body.style.overflow = navList.classList.contains('active') ? 'hidden' : '';
             });
         }
-        
-       // --- フォーム送信処理 ---
+
         const reservationForm = document.getElementById('reservation-form');
         const formMessage = document.getElementById('form-message');
         const submitButton = document.getElementById('submit-button');
 
         if (reservationForm) {
             reservationForm.addEventListener('submit', event => {
-              event.preventDefault(); 
-             
+              event.preventDefault();
               const isConfirmed = window.confirm('この内容で予約を送信します。よろしいですか？');
-              
-              if (!isConfirmed) {
-                 return; 
-              }
+              if (!isConfirmed) { return; }
 
               formMessage.style.display = 'none';
               formMessage.textContent = '';
-              formMessage.className = ''; // クラスをリセット
+              formMessage.className = '';
               submitButton.disabled = true;
               submitButton.textContent = '送信中...';
 
               const formData = new FormData(reservationForm);
-              
               fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(formData).toString()
               })
               .then(() => {
-                reservationForm.reset(); 
+                reservationForm.reset();
                 formMessage.textContent = 'ご予約ありがとうございます。内容を確認し、折り返しご連絡いたします。';
-                formMessage.className = 'success'; // successクラスを適用
+                formMessage.className = 'success';
              })
               .catch(error => {
                  console.error('Form submission error:', error);
                  formMessage.textContent = '送信エラーが発生しました。お手数ですが、お電話にてお問い合わせください。 (TEL: 0943-76-9221)';
-                 formMessage.className = 'error'; // errorクラスを適用
+                 formMessage.className = 'error';
               })
               .finally(() => {
                  formMessage.style.display = 'block';
-                 submitButton.disabled = false; 
+                 submitButton.disabled = false;
                  submitButton.textContent = '予約内容を送信する';
               });
             });
         }
-        
-       // --- スムーススクロール ---
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
-                // ナビゲーションリンクからのクリックかどうかの判定を改善
                 const isNavClick = this.closest('.nav-list') || this.closest('.scroll-down') || (this.classList.contains('button') && targetId.startsWith('#'));
 
-                if (targetId && targetId !== '#' && targetId !== '#!') { // #! なども除外
+                if (targetId && targetId !== '#' && targetId !== '#!') {
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         e.preventDefault();
                         const headerOffset = header ? header.offsetHeight : 0;
                         const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                        // ターゲット要素の上端がヘッダーの下に来るように調整、さらに20pxの余白
-                        const offsetPosition = elementPosition - headerOffset - 20; 
+                        const offsetPosition = elementPosition - headerOffset - 20;
 
-                        // モバイルメニューが開いている場合の処理
                         const isMobileNavActive = navList && navList.classList.contains('active');
-                        if (isMobileNavActive && isNavClick && this.closest('.nav-list')) { // ナビリスト内のリンククリック時のみ
+                        if (isMobileNavActive && isNavClick && this.closest('.nav-list')) {
                             hamburger.classList.remove('active');
                             navList.classList.remove('active');
-                            document.body.style.overflow = ''; // スクロールを許可
-                            // メニューが閉じるアニメーションを考慮して少し遅延させる
-                            setTimeout(() => {
-                                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                            }, 300); 
+                            document.body.style.overflow = '';
+                            setTimeout(() => window.scrollTo({ top: offsetPosition, behavior: 'smooth' }), 300);
                         } else {
-                             // PCまたはモバイルメニューが閉じた状態、またはナビ以外のアンカーリンク
                             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                         }
                     }
@@ -1140,27 +525,22 @@
             });
         });
 
-       // --- コピーライト年 ---
         const copyrightYearSpan = document.getElementById('copyright-year');
         if (copyrightYearSpan) { copyrightYearSpan.textContent = new Date().getFullYear(); }
 
-       // --- FAQ アコーディオン機能 ---
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
-            if (question) { // question要素が存在するか確認
+            if (question) {
                 question.addEventListener('click', () => {
-                    // 現在アクティブなFAQアイテムを取得し、それが現在のアイテムでなければ非アクティブ化
                     const currentlyActiveFaqItem = document.querySelector('.faq-item.active');
                     if (currentlyActiveFaqItem && currentlyActiveFaqItem !== item) {
                         currentlyActiveFaqItem.classList.remove('active');
                     }
-                    // クリックされたアイテムのアクティブ状態を切り替える
                     item.classList.toggle('active');
                 });
             }
         });
     </script>
-
 </body>
 </html>
