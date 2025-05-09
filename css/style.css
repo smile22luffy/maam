@@ -19,20 +19,23 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* ★★★ 変更点: box-shadowもトランジション対象に ★★★ */
     padding: 15px 0;
-    /* background-color: transparent; */ /* トップページスクロール前は透明 */
+    background-color: transparent; /* ★★★ 変更点: デフォルトは透明 ★★★ */
+    box-shadow: none; /* ★★★ 変更点: デフォルトは影なし ★★★ */
 }
-header.scrolled { /* トップページでスクロールした時のスタイル */
+header.scrolled { /* トップページでスクロールした時のスタイル (全ページ共通でスクロール時に適用も可) */
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-/* ブログページや記事ページでは初期から背景を表示 */
+/* ★★★ 変更点: ブログページや記事ページのヘッダー初期スタイル指定は不要になる (デフォルト透明のため) ★★★ */
+/*
 body.blog-page header,
 body.article-page header {
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+*/
 .header-inner { display: flex; justify-content: space-between; align-items: center; }
 .logo { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: 700; color: #fff; text-decoration: none; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; }
 .logo:hover { transform: scale(1.05); }
@@ -45,6 +48,15 @@ body.article-page header {
 .hamburger span { display: block; position: absolute; width: 100%; height: 3px; background-color: #fff; border-radius: 3px; transition: all 0.3s ease; }
 .hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); } .hamburger span:nth-child(3) { bottom: 0; }
 .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+
+/* ★★★ メインコンテンツの開始位置調整 (PC表示時) ★★★ */
+/* トップページ以外のページの<main class="main-content">に適用 */
+body:not(.home-page) main.main-content {
+    padding-top: 100px; /* PC時のヘッダー高さ + 十分な余白 */
+    position: relative; /* z-index を使う場合の基点 */
+    z-index: 1;      /* ヘッダー(z-index: 1000)より確実に下にする */
+}
 
 /* --- ヒーローセクション (トップページ用) --- */
 .hero { height: 100vh; background-image: url('../images/top/料理人ゆうちゃんの腕前.webp'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
@@ -293,7 +305,6 @@ body.article-page header {
 
 /* --- ブログ一覧ページ特有のスタイル --- */
 body.blog-page { background-color: #f8f8f8; }
-/* body:not(.home-page) main.main-content で padding-top は指定済み */
 .blog-list-header {
     background-color: #fff;
     padding: 40px 0;
@@ -337,12 +348,11 @@ body.blog-page { background-color: #f8f8f8; }
 
 /* --- 個別記事ページ特有のスタイル --- */
 body.article-page { background-color: #fff; }
-/* body:not(.home-page) main.main-content で padding-top は指定済み */
 .article-header {
     text-align: center;
     margin-bottom: 40px;
-    position: relative; /* ★★★ これを追加または確認 ★★★ */
-    z-index: 2; /* ★★★ main.main-content より手前に来るように ★★★ */
+    position: relative; 
+    z-index: 2; 
 }
 .article-title { font-family: 'Noto Serif JP', serif; font-size: 2.5rem; color: #2c3e50; margin-bottom: 15px; line-height: 1.3; }
 .article-meta { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 30px; }
@@ -438,11 +448,11 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
 
     /* ★★★ スマホ時のメインコンテンツ開始位置調整 ★★★ */
     body:not(.home-page) main.main-content,
-    body.blog-page main.main-content,     /* より具体的に指定 */
-    body.article-page main.main-content { /* より具体的に指定 */
+    body.blog-page main.main-content,
+    body.article-page main.main-content {
         padding-top: 85px; /* スマホ時のヘッダー高さ + 余白 */
-        position: relative; /* z-index を使う場合の基点 */
-        z-index: 1;      /* ヘッダー(z-index: 1000)より確実に下にする */
+        position: relative;
+        z-index: 1;
     }
 
     .hero-title { font-size: 2.5rem; }
@@ -469,8 +479,8 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .blog-page .blog-card-title { font-size: 1.3rem; min-height: calc(1.3rem * 1.5 * 2); }
     .blog-page .blog-card-excerpt { font-size: 0.95rem; }
     .section.blog { padding: 60px 0; }
-    .article-title { font-size: 1.8rem; line-height: 1.4;} /* スマホでの記事タイトル調整 */
-    .article-meta { font-size: 0.85rem; } /* スマホでの記事メタ情報調整 */
+    .article-title { font-size: 1.8rem; line-height: 1.4;}
+    .article-meta { font-size: 0.85rem; }
     .article-content h2 { font-size: 1.6rem; }
     .article-content h3 { font-size: 1.3rem; }
 }
@@ -478,8 +488,8 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
 @media (max-width: 480px) { /* Smaller SP */
     /* ★★★ さらに小さいスマホ時のメインコンテンツ開始位置調整 ★★★ */
     body:not(.home-page) main.main-content,
-    body.blog-page main.main-content,     /* より具体的に指定 */
-    body.article-page main.main-content { /* より具体的に指定 */
+    body.blog-page main.main-content,
+    body.article-page main.main-content {
         padding-top: 80px; /* さらに小さいスマホでの調整値 */
     }
 
@@ -499,14 +509,5 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .faq-question h3 { font-size: 1rem; }
     .blog-card-title { font-size: 1.1rem; min-height: calc(1.1rem * 1.4 * 2); }
     .blog-page .blog-card-title { font-size: 1.2rem; min-height: calc(1.2rem * 1.5 * 2); }
-    .article-title { font-size: 1.6rem; } /* さらに小さいスマホでの記事タイトル調整 */
+    .article-title { font-size: 1.6rem; }
 }
-
-/* 既存の body:not(.home-page) main.main-content の padding-top 指定は削除またはコメントアウト */
-/*
-body:not(.home-page) main.main-content {
-    padding-top: 90px;
-}
-*/
-
-/* ★★★ デバッグ用スタイルは削除しました ★★★ */
