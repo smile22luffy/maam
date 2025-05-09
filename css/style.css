@@ -511,3 +511,35 @@ footer { background-color: #1a1a1a; color: #fff; padding: 80px 0 30px; }
     .blog-page .blog-card-title { font-size: 1.2rem; min-height: calc(1.2rem * 1.5 * 2); }
     .article-title { font-size: 1.6rem; }
 }
+/* --- 食材カレンダーテーブルのスタイル --- */
+.food-calendar {
+    width: 100%; /* 表の幅をコンテナに合わせる */
+    border-collapse: collapse; /* 隣り合うセルの罫線を重ねて表示 */
+    margin-top: 25px; /* 表の上の余白 */
+    margin-bottom: 25px; /* 表の下の余白 */
+    font-size: 0.95rem; /* 文字サイズを少し調整 */
+}
+
+.food-calendar th,
+.food-calendar td {
+    border: 1px solid #ddd; /* セルに薄い灰色の罫線を追加 */
+    padding: 10px 12px;       /* セル内の余白を上下10px、左右12pxに */
+    text-align: left;       /* セル内のテキストを左寄せに */
+    vertical-align: top;    /* セル内のテキストを上揃えに (複数行になる場合) */
+}
+
+.food-calendar th {
+    background-color: #f2f2f2; /* ヘッダー行の背景を薄い灰色に */
+    font-weight: bold;          /* ヘッダー行の文字を太字に */
+    color: #333;                /* ヘッダー行の文字色 */
+}
+
+/* 奇数行の背景色を少し変えて見やすくする (任意) */
+.food-calendar tbody tr:nth-child(odd) td {
+    background-color: #f9f9f9;
+}
+
+/* ホバー時のスタイル (任意) */
+.food-calendar tbody tr:hover td {
+    background-color: #f5f5f5;
+}
