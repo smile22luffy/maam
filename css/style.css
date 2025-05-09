@@ -547,3 +547,12 @@ body:not(.home-page) main.main-content {
     }
 }
 */
+
+/* style.css の一番最後に追記してみてください */
+
+body.article-page main.main-content {
+    padding-top: 150px !important; /* ← !important を追加して強制的に値を大きくしてみる */
+    background-color: lightblue !important; /* ← 背景色を付けて要素の範囲を視覚的に確認 */
+    z-index: 1 !important;
+    position: relative !important;
+}
