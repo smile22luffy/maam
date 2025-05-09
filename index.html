@@ -340,7 +340,7 @@
         .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 
       /* --- ヒーローセクション --- */
-        .hero { height: 100vh; background-image: url('料理人ゆうちゃんの腕前.webp'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .hero { height: 100vh; padding-top: 70px; background-image: url('料理人ゆうちゃんの腕前.webp'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); z-index: 1; }
         .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); z-index: 2; }
         .hero-content { position: relative; z-index: 3; color: white; max-width: 800px; padding: 0 20px; text-align: center; }
@@ -556,7 +556,14 @@
             .nav-list a::after { left: 50%; transform: translateX(-50%); }
             .nav-list a:hover::after { width: 30%; }
             .hamburger { display: block; }
-            
+
+            .hero {
+            padding-top: 80px; /* スマホ表示時はさらにパディングを増やす */
+            }  
+            /* ヘッダーとヒーロータイトルの間隔を調整 */
+            .hero-content {
+            padding-top: 30px;
+            }
             .hero-title { font-size: 2.5rem; }
             .hero-subtitle { font-size: 1.4rem; }
             .button { padding: 12px 30px; }
