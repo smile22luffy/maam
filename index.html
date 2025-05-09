@@ -340,10 +340,28 @@
         .hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); } .hamburger.active span:nth-child(2) { opacity: 0; } .hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 
       /* --- ヒーローセクション --- */
-        .hero { height: 100vh; padding-top: 70px; background-image: url('料理人ゆうちゃんの腕前.webp'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .hero {
+            height: 100vh;
+            background-image: url('料理人ゆうちゃんの腕前.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)); z-index: 1; }
         .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); z-index: 2; }
-        .hero-content { position: relative; z-index: 3; color: white; max-width: 800px; padding: 0 20px; text-align: center; }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px; /* 左右のパディングは維持 */
+            text-align: center;
+             /* PCでは特にpadding-topは不要な場合が多いので、SP用にメディアクエリで設定 */
+        }
         .hero-title { font-family: 'Noto Serif JP', serif; font-size: 4rem; margin-bottom: 20px; letter-spacing: 3px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; animation: fadeInUp 1s forwards 0.5s; }
         .hero-subtitle { font-size: 1.8rem; margin-bottom: 20px; font-weight: 300; opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards 0.8s; }
         .hero-description { font-size: 1.2rem; margin-bottom: 30px; line-height: 1.8; opacity: 0; transform: translateY(20px); animation: fadeInUp 1s forwards 1.1s; }
@@ -556,13 +574,10 @@
             .nav-list a::after { left: 50%; transform: translateX(-50%); }
             .nav-list a:hover::after { width: 30%; }
             .hamburger { display: block; }
-
-            .hero {
-            padding-top: 80px; /* スマホ表示時はさらにパディングを増やす */
-            }  
-            /* ヘッダーとヒーロータイトルの間隔を調整 */
+            
             .hero-content {
-            padding-top: 30px;
+                padding-top: 90px; /* ヘッダーの高さ(約60-70px) + 上部マージン。値を調整してください */
+                padding-bottom: 40px; /* 下部にも少しパディングを追加してスクロールダウンボタンとの間隔を調整 */
             }
             .hero-title { font-size: 2.5rem; }
             .hero-subtitle { font-size: 1.4rem; }
@@ -590,14 +605,15 @@
         }
         
         @media (max-width: 480px) { /* Smaller SP */
+            .hero-content {
+                padding-top: 80px; /* Smaller SP 用の調整 */
+                padding-bottom: 30px; /* Smaller SP 用の調整 */
+            }
             .hero-title { font-size: 2rem; }
             .hero-subtitle { font-size: 1.2rem; }
             .button { padding: 10px 25px; }
-            .hero-content > div { display: flex; flex-direction: column; gap: 15px; margin-bottom: 50px;}
-            .hero-content .button { display: block; margin-left: 0; width: 80%; margin: 0 auto 20px; }
-            .hero-content .button:last-child {
-            margin-bottom: 40px; /* さらに大きなマージン */
-            }
+            .hero-content > div { display: flex; flex-direction: column; gap: 15px; }
+            .hero-content .button { display: block; margin-left: 0; width: 80%; margin: 0 auto 10px; }
 
             .section-title { font-size: 1.8rem; }
             .lunch-examples-title { font-size: 1.6rem; }
@@ -623,6 +639,7 @@
                     <li><a href="#info">店舗情報</a></li>
                     <li><a href="#reservation">ご予約</a></li>
                     <li><a href="#faq">FAQ</a></li> <!-- SEO: FAQへのナビゲーションリンク追加 (任意) -->
+                    <li><a href="#blog">ブログ</a></li> <!-- ブログへのナビゲーションリンク -->
                 </ul>
                 <div class="hamburger"><span></span><span></span><span></span></div>
             </nav>
